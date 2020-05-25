@@ -1,6 +1,8 @@
 package com.gsm.bee_assistant_android.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
@@ -22,13 +24,25 @@ class MainActivity : BaseActivity(), MainContract.View {
         binding.main = this
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.disposeDisposable()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        presenter.backPressed()
+    }
+
     override fun init() {}
 
     override fun showKeyboard() {}
 
     override fun hideKeyboard() {}
 
-    override fun showToast(message: String) {}
+    override fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-    override fun startActivity(activityName: Class<*>) {}
+    override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }
+
+    override fun finishAffinityActivity() = finishAffinity()
 }

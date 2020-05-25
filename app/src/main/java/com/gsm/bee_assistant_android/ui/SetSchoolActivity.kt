@@ -24,6 +24,11 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View {
         binding.setschool = this
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.disposeDisposable()
+    }
+
     override fun init() {}
 
     override fun showKeyboard() {}

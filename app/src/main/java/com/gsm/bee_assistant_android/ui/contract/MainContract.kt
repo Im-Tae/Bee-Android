@@ -6,8 +6,12 @@ import com.gsm.bee_assistant_android.base.BaseView
 class MainContract {
 
     interface View : BaseView<Presenter> {
+
+        fun finishAffinityActivity()
     }
 
     interface Presenter : BasePresenter<View> {
+
+        fun backPressed()
     }
 }

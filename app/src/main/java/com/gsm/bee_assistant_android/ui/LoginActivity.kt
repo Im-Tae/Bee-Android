@@ -23,6 +23,11 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         binding.login = this
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.disposeDisposable()
+    }
+
     override fun init() {}
 
     override fun showKeyboard() {}

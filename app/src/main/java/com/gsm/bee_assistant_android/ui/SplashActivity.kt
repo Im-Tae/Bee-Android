@@ -23,6 +23,11 @@ class SplashActivity : BaseActivity(), SplashContract.View {
         binding.splash = this
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.disposeDisposable()
+    }
+
     override fun init() {}
 
     override fun showKeyboard() {}

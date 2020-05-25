@@ -7,12 +7,76 @@
             type="com.gsm.bee_assistant_android.ui.LoginActivity" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <LinearLayout
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.LoginActivity">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <ImageView
+                android:src="@drawable/bg_honeycomb"
+                android:layout_width="170dp"
+                android:layout_height="130dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#ff9900"
+                android:textSize="15pt"
+                android:fontFamily="@font/apple_eb"
+                android:layout_marginLeft="15dp"
+                android:text="AI 꿀벌"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="#000000"
+                android:textSize="15pt"
+                android:fontFamily="@font/apple_eb"
+                android:text="을"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+            android:layout_marginLeft="15dp"
+            android:textColor="#000000"
+            android:textSize="15pt"
+            android:fontFamily="@font/apple_eb"
+            android:text="선택해주셔서 감사합니다."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="#000000"
+            android:textSize="9pt"
+            android:fontFamily="@font/apple_eb"
+            android:text="본격적인 사용에 앞서\nGoogle 계정을 연결해주세요."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:layout_gravity="center"
+            android:textSize="11pt"
+            android:textColor="@android:color/white"
+            android:fontFamily="@font/apple_eb"
+            android:text="Google 계정으로 로그인"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/orange_button"
+            android:layout_width="400dp"
+            android:layout_height="60dp"/>
+
+
+    </LinearLayout>
 </layout>

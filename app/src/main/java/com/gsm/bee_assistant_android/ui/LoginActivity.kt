@@ -7,6 +7,7 @@ import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
 import com.gsm.bee_assistant_android.databinding.ActivityLoginBinding
 import com.gsm.bee_assistant_android.ui.contract.LoginContract
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class LoginActivity : BaseActivity(), LoginContract.View {
@@ -21,6 +22,8 @@ class LoginActivity : BaseActivity(), LoginContract.View {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.login = this
+
+        AndroidInjection.inject(this)
     }
 
     override fun onDestroy() {

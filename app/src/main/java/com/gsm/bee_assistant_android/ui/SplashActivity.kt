@@ -1,12 +1,15 @@
 package com.gsm.bee_assistant_android.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
 import com.gsm.bee_assistant_android.databinding.ActivitySplashBinding
 import com.gsm.bee_assistant_android.ui.contract.SplashContract
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity(), SplashContract.View {
@@ -21,6 +24,8 @@ class SplashActivity : BaseActivity(), SplashContract.View {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
         binding.splash = this
+
+        AndroidInjection.inject(this)
     }
 
     override fun onDestroy() {
@@ -34,7 +39,7 @@ class SplashActivity : BaseActivity(), SplashContract.View {
 
     override fun hideKeyboard() {}
 
-    override fun showToast(message: String) {}
+    override fun showToast(message: String)  = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
-    override fun startActivity(activityName: Class<*>) {}
+    override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }
 }

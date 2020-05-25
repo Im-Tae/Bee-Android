@@ -7,6 +7,7 @@ import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
 import com.gsm.bee_assistant_android.databinding.ActivitySetSchoolBinding
 import com.gsm.bee_assistant_android.ui.contract.SetSchoolContract
+import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class SetSchoolActivity : BaseActivity(), SetSchoolContract.View {
@@ -22,6 +23,8 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_set_school)
         binding.setschool = this
+
+        AndroidInjection.inject(this)
     }
 
     override fun onDestroy() {

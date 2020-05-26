@@ -1,5 +1,6 @@
 package com.gsm.bee_assistant_android.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -40,5 +41,5 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View {
 
     override fun showToast(message: String) {}
 
-    override fun startActivity(activityName: Class<*>) {}
+    override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }
 }

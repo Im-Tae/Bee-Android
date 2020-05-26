@@ -4,11 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
 import com.gsm.bee_assistant_android.databinding.ActivitySplashBinding
 import com.gsm.bee_assistant_android.ui.contract.SplashContract
+import com.gsm.bee_assistant_android.utils.PreferenceManager
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -16,6 +16,9 @@ class SplashActivity : BaseActivity(), SplashContract.View {
 
     @Inject
     override lateinit var presenter : SplashContract.Presenter
+
+    @Inject
+    lateinit var pref : PreferenceManager
 
     override lateinit var binding: ActivitySplashBinding
 

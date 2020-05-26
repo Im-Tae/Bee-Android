@@ -9,6 +9,10 @@ class LoginPresenter @Inject constructor(override val view: LoginContract.View) 
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
+    override fun login() {
+
+    }
+
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }
 
     override fun disposeDisposable() = compositeDisposable.dispose()

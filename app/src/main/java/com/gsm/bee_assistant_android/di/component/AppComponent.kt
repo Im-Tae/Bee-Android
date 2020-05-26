@@ -3,6 +3,7 @@ package com.gsm.bee_assistant_android.di.component
 import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.di.module.ActivityModule
 import com.gsm.bee_assistant_android.di.module.AppModule
+import com.gsm.bee_assistant_android.di.module.DataModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -14,7 +15,8 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         AppModule::class,
-        ActivityModule::class
+        ActivityModule::class,
+        DataModule::class
     ]
 )
 

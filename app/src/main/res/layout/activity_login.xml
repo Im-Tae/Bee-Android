@@ -75,7 +75,8 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/orange_button"
             style="@style/button_font_white"
-            android:text="Google 계정으로 로그인" />
+            android:text="Google 계정으로 로그인"
+            android:onClick="@{() -> login.presenter.login()}"/>
 
     </LinearLayout>
 </layout>

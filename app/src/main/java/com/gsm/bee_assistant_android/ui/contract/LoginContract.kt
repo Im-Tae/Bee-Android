@@ -9,5 +9,7 @@ class LoginContract {
     }
 
     interface Presenter : BasePresenter<View> {
+
+        fun login()
     }
 }

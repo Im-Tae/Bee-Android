@@ -70,4 +70,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }
 
     override fun getContext() = this
+
+    override fun finishActivity() = finish()
 }

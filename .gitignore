@@ -116,3 +116,7 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+
+.bin
+.ser
+.lock

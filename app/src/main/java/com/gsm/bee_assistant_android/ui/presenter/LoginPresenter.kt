@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.gsm.bee_assistant_android.di.app.MyApplication
+import com.gsm.bee_assistant_android.ui.SetSchoolActivity
 import com.gsm.bee_assistant_android.ui.contract.LoginContract
 import com.gsm.bee_assistant_android.utils.PreferenceManager
 import io.reactivex.Observable
@@ -21,9 +22,6 @@ import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class LoginPresenter @Inject constructor(override val view: LoginContract.View) : LoginContract.Presenter {
-
-    @Inject
-    lateinit var pref : PreferenceManager
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -45,27 +43,9 @@ class LoginPresenter @Inject constructor(override val view: LoginContract.View) 
                         FirebaseAuth
                             .getInstance()
                             .signInWithCredential(credential)
-                    )
-                        .subscribe { getUserInfo() }
+                    ).subscribe { view.startActivity(SetSchoolActivity::class.java).apply { view.finishActivity() } }
                 )
-
             }
-        }
-    }
-
-    override fun getUserInfo() {
-
-        val user = FirebaseAuth.getInstance().currentUser
-
-        user.let {
-
-            val name = it?.displayName
-            val email = it?.email
-            val photoUrl = it?.photoUrl
-
-            pref.setData(MyApplication.Key.EMAIL.toString(), email.toString())
-
-            Log.d("test", email.toString())
         }
     }
 

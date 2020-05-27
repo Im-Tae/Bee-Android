@@ -5,9 +5,10 @@ import com.gsm.bee_assistant_android.base.BaseView
 
 class SetSchoolContract {
 
-    interface View : BaseView<Presenter> {
-    }
+    interface View : BaseView<Presenter>
 
     interface Presenter : BasePresenter<View> {
+
+        fun getUserInfo()
     }
 }

@@ -26,6 +26,8 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View {
         binding.setschool = this
 
         AndroidInjection.inject(this)
+
+        init()
     }
 
     override fun onDestroy() {
@@ -33,7 +35,9 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View {
         presenter.disposeDisposable()
     }
 
-    override fun init() {}
+    override fun init() {
+        presenter.getUserInfo()
+    }
 
     override fun showKeyboard() {}
 

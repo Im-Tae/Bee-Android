@@ -6,13 +6,16 @@ import com.gsm.bee_assistant_android.base.BaseView
 class SetSchoolContract {
 
     interface View : BaseView<Presenter>
-
     interface Presenter : BasePresenter<View> {
 
         val regionList: Array<String>
         val schoolKindList: Array<String>
-        val schoolNameList: Array<String>
+        val schoolNameList: MutableList<String>
 
         fun getUserInfo()
+
+        fun getSchoolInfo(schoolKind: String, region: String, schoolType: String)
+
+        fun getIdValue(schoolKind: String, region: String)
     }
 }

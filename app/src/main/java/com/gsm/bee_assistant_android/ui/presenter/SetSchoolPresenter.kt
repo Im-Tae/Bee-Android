@@ -5,10 +5,15 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.di.app.MyApplication
+import com.gsm.bee_assistant_android.retrofit.RetrofitHelper
+import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
 import com.gsm.bee_assistant_android.ui.contract.SetSchoolContract
 import com.gsm.bee_assistant_android.utils.PreferenceManager
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.observers.DisposableObserver
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContract.View, context: Context) : SetSchoolContract.Presenter {
@@ -20,8 +25,13 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
 
     override val regionList: Array<String> = context.resources.getStringArray(R.array.region)
     override val schoolKindList: Array<String> = context.resources.getStringArray(R.array.school_kind)
-    override val schoolNameList: Array<String> = arrayOf("")
+    override var schoolNameList: MutableList<String> = mutableListOf("")
 
+    private val schoolKindIdList: Array<String> = context.resources.getStringArray(R.array.school_kind_id)
+    private val regionIdList: Array<String> = context.resources.getStringArray(R.array.region_id)
+    private val schoolTypeIdList: Array<String> = context.resources.getStringArray(R.array.school_type_id)
+
+    private val getSchoolInfo = RetrofitHelper.getSchoolInfo()
 
     override fun getUserInfo() {
 
@@ -37,6 +47,41 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
 
             Log.d("test", email.toString())
         }
+    }
+
+    override fun getSchoolInfo(schoolKind: String, region: String, schoolType: String) {
+
+        addDisposable(
+            getSchoolInfo.getSchoolInfo(apiKey = MyApplication.Api_Key, schoolKind = schoolKind, region =  region, schoolType = schoolType)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(object : DisposableObserver<SchoolInfo>() {
+                    override fun onNext(schoolInfo: SchoolInfo) {
+
+                        //Log.d("schoolNameTest", schoolInfo.toString())
+
+                        schoolNameList.clear()
+
+                        for(index in 0 until schoolInfo.dataSearch!!.content!!.size) {
+                            schoolNameList.add(schoolInfo.dataSearch.content!![index].schoolName!!)
+                        }
+                    }
+
+                    override fun onComplete() {  }
+
+                    override fun onError(e: Throwable) { Log.d("error", e.message.toString()) }
+                })
+        )
+
+    }
+
+    override fun getIdValue(schoolKind: String, region: String) {
+
+        val schoolKindId = schoolKindIdList[schoolKindList.indexOf(schoolKind)]
+        val regionId = regionIdList[regionList.indexOf(region)]
+        val schoolTypeId = schoolTypeIdList[schoolKindList.indexOf(schoolKind)]
+
+        getSchoolInfo(schoolKindId, regionId, schoolTypeId)
     }
 
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }

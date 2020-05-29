@@ -68,10 +68,6 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
         skip_button.setOnClickListener(this)
     }
 
-    override fun showKeyboard() {}
-
-    override fun hideKeyboard() {}
-
     override fun showToast(message: String) {}
 
     override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }

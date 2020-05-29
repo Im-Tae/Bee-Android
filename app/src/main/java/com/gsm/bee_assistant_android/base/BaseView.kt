@@ -9,10 +9,6 @@ interface BaseView<T> {
 
     fun init()
 
-    fun hideKeyboard()
-
-    fun showKeyboard()
-
     fun showToast(message: String)
 
     fun startActivity(activityName : Class<*>)

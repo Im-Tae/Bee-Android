@@ -55,10 +55,6 @@ class LoginActivity : BaseActivity(), LoginContract.View {
         presenter.googleSignIn(googleSignInClient.signInIntent)
     }
 
-    override fun showKeyboard() {}
-
-    override fun hideKeyboard() {}
-
     override fun showToast(message: String) {}
 
     override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }

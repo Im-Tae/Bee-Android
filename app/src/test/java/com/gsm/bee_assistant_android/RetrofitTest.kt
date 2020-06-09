@@ -3,8 +3,6 @@ package com.gsm.bee_assistant_android
 import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
 import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.*
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations

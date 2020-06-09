@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
@@ -13,6 +14,7 @@ import com.gsm.bee_assistant_android.ui.contract.SetSchoolContract
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_set_school.*
 import javax.inject.Inject
+import kotlin.math.sign
 
 class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.OnItemSelectedListener, View.OnClickListener {
 

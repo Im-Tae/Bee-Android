@@ -5,7 +5,6 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.di.app.MyApplication
-import com.gsm.bee_assistant_android.retrofit.RetrofitHelper
 import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
 import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
 import com.gsm.bee_assistant_android.ui.contract.SetSchoolContract
@@ -29,11 +28,12 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
 
     override val regionList: Array<String> = context.resources.getStringArray(R.array.region)
     override val schoolKindList: Array<String> = context.resources.getStringArray(R.array.school_kind)
-    override var schoolNameList: MutableList<String> = mutableListOf("")
 
     private val schoolKindIdList: Array<String> = context.resources.getStringArray(R.array.school_kind_id)
     private val regionIdList: Array<String> = context.resources.getStringArray(R.array.region_id)
     private val schoolTypeIdList: Array<String> = context.resources.getStringArray(R.array.school_type_id)
+
+    override var schoolNameList: MutableList<String> = mutableListOf("")
 
     override fun getUserInfo() {
 
@@ -67,14 +67,15 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
                         for(index in 0 until schoolInfo.dataSearch!!.content!!.size) {
                             schoolNameList.add(schoolInfo.dataSearch.content!![index].schoolName!!)
                         }
+
+                        pref.setData("getSchoolInfoTest", schoolInfo.dataSearch.content!![0].schoolName!!)
                     }
 
-                    override fun onComplete() {  }
+                    override fun onComplete() { }
 
                     override fun onError(e: Throwable) { Log.d("error", e.message.toString()) }
                 })
         )
-
     }
 
     override fun getIdValue(schoolKind: String, region: String) {

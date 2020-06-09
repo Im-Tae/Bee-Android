@@ -28,8 +28,6 @@ class SplashPresenter @Inject constructor(override val view: SplashContract.View
             else ->
                 addDisposable(
                     Observable.interval(1000 * 3, TimeUnit.MILLISECONDS)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribe { view.startActivity(LoginActivity::class.java).apply { view.finishActivity() } }
                 )
         }

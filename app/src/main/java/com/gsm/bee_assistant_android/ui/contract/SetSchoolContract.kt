@@ -5,7 +5,14 @@ import com.gsm.bee_assistant_android.base.BaseView
 
 class SetSchoolContract {
 
-    interface View : BaseView<Presenter>
+    interface View : BaseView<Presenter> {
+
+        val progressStatus: Boolean
+
+        fun setProgressStatus()
+
+    }
+
     interface Presenter : BasePresenter<View> {
 
         val regionList: Array<String>
@@ -17,5 +24,6 @@ class SetSchoolContract {
         fun getSchoolInfo(schoolKind: String, region: String, schoolType: String)
 
         fun getIdValue(schoolKind: String, region: String)
+
     }
 }

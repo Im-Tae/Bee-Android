@@ -33,110 +33,139 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30sp"
-            android:layout_marginStart="15sp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/title_font_dark_orange"
-                android:text="AI 꿀벌" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/title_font_black"
-                android:text="을"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15sp"
-            style="@style/title_font_black"
-            android:text="선택해주셔서 감사합니다."/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30sp"
-            android:layout_marginStart="15sp"
-            style="@style/content_font_black"
-            android:text="학교 설정을 해주세요.\n원하지 않으신다면 '건너뛰기'를 눌러주세요."
-            />
-
-        <LinearLayout
-            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginStart="10sp"
-            android:layout_marginEnd="10sp"
+            android:gravity="center_vertical"
             >
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10sp">
+                android:layout_marginTop="30sp"
+                android:layout_marginStart="15sp">
 
-                <Spinner
-                    android:id="@+id/region_spinner"
-                    android:layout_width="0sp"
-                    android:layout_height="60sp"
-                    android:layout_marginEnd="10sp"
-                    android:background="@drawable/spinner"
-                    android:entries="@{setschool.presenter.regionList}"
-                    android:overlapAnchor="false"
-                    android:theme="@style/spinnerTheme"
-                    app:layout_constraintEnd_toStartOf="@+id/school_Kind_spinner"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/title_font_dark_orange"
+                    android:text="AI 꿀벌" />
 
-                <Spinner
-                    android:id="@+id/school_Kind_spinner"
-                    android:layout_width="0sp"
-                    android:layout_height="60sp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/region_spinner"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:theme="@style/spinnerTheme"
-                    android:entries="@{setschool.presenter.schoolKindList}"
-                    android:overlapAnchor="false"
-                    android:background="@drawable/spinner" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/title_font_black"
+                    android:text="을"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
-            <Spinner
-                android:id="@+id/schoolName_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="60sp"
-                android:layout_marginTop="10sp"
-                android:layout_gravity="center"
-                android:theme="@style/spinnerTheme"
-                android:entries="@{setschool.presenter.schoolNameList}"
-                android:overlapAnchor="false"
-                android:background="@drawable/spinner"/>
-
-            <Button
-                android:id="@+id/setSchool_button"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
-                android:layout_gravity="center"
-                android:background="@drawable/orange_button"
-                style="@style/button_font_white"
-                android:text="학교 설정" />
+                android:layout_marginStart="15sp"
+                style="@style/title_font_black"
+                android:text="선택해주셔서 감사합니다."/>
 
-            <Button
-                android:id="@+id/skip_button"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10sp"
-                android:layout_gravity="center"
-                android:background="@drawable/gray_button"
-                style="@style/button_font_black"
-                android:text="건너뛰기" />
+                android:layout_marginTop="30sp"
+                android:layout_marginStart="15sp"
+                style="@style/content_font_black"
+                android:text="학교 설정을 해주세요.\n원하지 않으신다면 '건너뛰기'를 눌러주세요."
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="10sp"
+                android:layout_marginEnd="10sp"
+                >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp">
+
+                    <Spinner
+                        android:id="@+id/region_spinner"
+                        android:layout_width="0sp"
+                        android:layout_height="60sp"
+                        android:layout_marginEnd="10sp"
+                        android:background="@drawable/spinner"
+                        android:entries="@{setschool.presenter.regionList}"
+                        android:overlapAnchor="false"
+                        android:theme="@style/spinnerTheme"
+                        app:layout_constraintEnd_toStartOf="@+id/school_Kind_spinner"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/school_Kind_spinner"
+                        android:layout_width="0sp"
+                        android:layout_height="60sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/region_spinner"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:theme="@style/spinnerTheme"
+                        android:entries="@{setschool.presenter.schoolKindList}"
+                        android:overlapAnchor="false"
+                        android:background="@drawable/spinner" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp">
+
+                    <Spinner
+                        android:id="@+id/schoolName_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="60sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:theme="@style/spinnerTheme"
+                        android:entries="@{setschool.presenter.schoolNameList}"
+                        android:overlapAnchor="false"
+                        android:enabled="@{setschool.progressStatus}"
+                        android:background="@drawable/spinner"/>
+
+                    <com.victor.loading.rotate.RotateLoading
+                        android:id="@+id/loading_progress"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:loading_width="3dp"
+                        app:loading_color="@color/orangeColor"
+                        android:layout_centerInParent="true"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/setSchool_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/orange_button"
+                    style="@style/button_font_white"
+                    android:text="학교 설정" />
+
+                <Button
+                    android:id="@+id/skip_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10sp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/gray_button"
+                    style="@style/button_font_black"
+                    android:text="건너뛰기" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -89,4 +89,7 @@ dependencies {
     // google auth with firebase
     implementation 'com.google.android.gms:play-services-auth:18.0.0'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
+
+    // Loading
+    implementation 'com.victor:lib:1.0.4'
 }

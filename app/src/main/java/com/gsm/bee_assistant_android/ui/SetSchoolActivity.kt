@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
@@ -14,7 +13,6 @@ import com.gsm.bee_assistant_android.ui.contract.SetSchoolContract
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_set_school.*
 import javax.inject.Inject
-import kotlin.math.sign
 
 class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -22,6 +20,8 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
     override lateinit var presenter : SetSchoolContract.Presenter
 
     override lateinit var binding: ActivitySetSchoolBinding
+
+    override var progressStatus: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,4 +74,13 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
 
     override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }
 
+    override fun setProgressStatus() {
+
+        progressStatus = !progressStatus
+
+        when(progressStatus) {
+            false -> loading_progress.start()
+            else -> loading_progress.stop()
+        }
+    }
 }

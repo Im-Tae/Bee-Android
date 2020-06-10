@@ -8,12 +8,16 @@ import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
 import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
 import com.gsm.bee_assistant_android.ui.contract.SetSchoolContract
+import com.gsm.bee_assistant_android.utils.NetworkUtil
 import com.gsm.bee_assistant_android.utils.PreferenceManager
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.observers.DisposableObserver
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContract.View, context: Context) : SetSchoolContract.Presenter {
@@ -23,6 +27,9 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
 
     @Inject
     lateinit var schoolNameRetrofit: SchoolInfoApi
+
+    @Inject
+    lateinit var networkStatus: NetworkUtil
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -59,6 +66,15 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
             schoolNameRetrofit.getSchoolInfo(apiKey = MyApplication.Api_Key, schoolKind = schoolKind, region =  region, schoolType = schoolType)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                .retryWhen {
+                    Observable.interval(3, TimeUnit.SECONDS)
+                        .retryUntil {
+                            if(networkStatus.networkInfo())
+                                return@retryUntil true
+
+                            false
+                        }
+                }
                 .subscribeWith(object : DisposableObserver<SchoolInfo>() {
                     override fun onNext(schoolInfo: SchoolInfo) {
 

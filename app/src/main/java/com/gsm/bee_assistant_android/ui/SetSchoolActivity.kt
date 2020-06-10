@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
@@ -68,7 +69,7 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
         skip_button.setOnClickListener(this)
     }
 
-    override fun showToast(message: String) {}
+    override fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
     override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }
 

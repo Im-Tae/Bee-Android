@@ -8,7 +8,6 @@ class SetSchoolContract {
     interface View : BaseView<Presenter> {
 
         fun setProgressStatus(bool: Boolean)
-
     }
 
     interface Presenter : BasePresenter<View> {

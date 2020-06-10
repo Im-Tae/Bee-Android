@@ -85,8 +85,6 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
                         for(index in 0 until schoolInfo.dataSearch!!.content!!.size) {
                             schoolNameList.add(schoolInfo.dataSearch.content!![index].schoolName!!)
                         }
-
-                        pref.setData("getSchoolInfoTest", schoolInfo.dataSearch.content!![0].schoolName!!)
                     }
 
                     override fun onComplete() { view.setProgressStatus(false) }
@@ -104,6 +102,8 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
 
         getSchoolInfo(schoolKindId, regionId, schoolTypeId)
     }
+
+    override fun setSchoolName(schoolName: String) { pref.setData(MyApplication.Key.SCHOOL_NAME.toString(), schoolName) }
 
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }
 

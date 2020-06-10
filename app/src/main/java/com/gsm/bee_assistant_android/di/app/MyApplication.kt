@@ -7,7 +7,8 @@ import dagger.android.DaggerApplication
 class MyApplication : DaggerApplication() {
 
     enum class Key {
-        EMAIL
+        EMAIL,
+        SCHOOL_NAME
     }
 
     companion object {

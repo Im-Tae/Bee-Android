@@ -53,10 +53,13 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.setSchool_button -> {
-                // here
+                presenter.setSchoolName(schoolName_spinner.selectedItem.toString())
                 startActivity(MainActivity::class.java)
             }
-            R.id.skip_button -> startActivity(MainActivity::class.java)
+            R.id.skip_button -> {
+                presenter.setSchoolName("")
+                startActivity(MainActivity::class.java)
+            }
         }
     }
 

@@ -57,9 +57,11 @@
                 android:layout_height="40sp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/dark_orange_border"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textColor="#393939" />
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:gravity="center_vertical"
+                android:inputType="text"
+                android:textColor="#717171"/>
 
             <Button
                 android:id="@+id/logout_button"
@@ -124,9 +126,11 @@
                 android:layout_height="40sp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/dark_orange_border"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:textColor="#393939" />
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:gravity="center_vertical"
+                android:inputType="text"
+                android:textColor="#717171" />
 
             <Button
                 android:id="@+id/school_change_button"

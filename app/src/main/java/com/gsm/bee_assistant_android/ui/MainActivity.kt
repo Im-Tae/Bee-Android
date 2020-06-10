@@ -41,6 +41,8 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun init() {
         show_navigation_bar_button.setOnClickListener(this)
+        bindingNavigationHeader.userEmail.text = presenter.getUserEmail()
+        bindingNavigationHeader.userSchoolName.text = presenter.getSchoolName()
     }
 
     override fun onDestroy() {

@@ -13,5 +13,9 @@ class MainContract {
     interface Presenter : BasePresenter<View> {
 
         fun backPressed()
+
+        fun getUserEmail(): String
+
+        fun getSchoolName(): String
     }
 }

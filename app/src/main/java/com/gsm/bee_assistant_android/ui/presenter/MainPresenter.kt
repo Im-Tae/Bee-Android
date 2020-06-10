@@ -1,11 +1,17 @@
 package com.gsm.bee_assistant_android.ui.presenter
 
+import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.ui.contract.MainContract
+import com.gsm.bee_assistant_android.utils.PreferenceManager
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 class MainPresenter @Inject constructor(override val view: MainContract.View) : MainContract.Presenter {
+
+
+    @Inject
+    lateinit var pref: PreferenceManager
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private var lastTimeBackPressed: Long = 0
@@ -18,6 +24,10 @@ class MainPresenter @Inject constructor(override val view: MainContract.View) : 
             lastTimeBackPressed = System.currentTimeMillis()
         }
     }
+
+    override fun getUserEmail(): String = pref.getData(MyApplication.Key.EMAIL.toString())!!
+
+    override fun getSchoolName(): String = pref.getData(MyApplication.Key.SCHOOL_NAME.toString())!!
 
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }
 

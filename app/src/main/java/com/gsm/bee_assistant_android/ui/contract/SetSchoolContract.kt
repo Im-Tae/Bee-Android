@@ -22,5 +22,6 @@ class SetSchoolContract {
 
         fun getIdValue(schoolKind: String, region: String)
 
+        fun setSchoolName(schoolName: String)
     }
 }

@@ -16,8 +16,6 @@ class SetSchoolContract {
         val schoolKindList: Array<String>
         val schoolNameList: MutableList<String>
 
-        fun getUserInfo()
-
         fun getSchoolInfo(schoolKind: String, region: String, schoolType: String)
 
         fun getIdValue(schoolKind: String, region: String)

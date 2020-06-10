@@ -56,15 +56,12 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
                 presenter.setSchoolName(schoolName_spinner.selectedItem.toString())
                 startActivity(MainActivity::class.java)
             }
-            R.id.skip_button -> {
-                presenter.setSchoolName("")
-                startActivity(MainActivity::class.java)
-            }
+            R.id.skip_button -> startActivity(MainActivity::class.java)
+
         }
     }
 
     override fun init() {
-        presenter.getUserInfo()
 
         school_Kind_spinner.onItemSelectedListener = this
         region_spinner.onItemSelectedListener = this

@@ -42,22 +42,6 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
 
     override var schoolNameList: MutableList<String> = mutableListOf("")
 
-    override fun getUserInfo() {
-
-        val user = FirebaseAuth.getInstance().currentUser
-
-        user.let {
-
-            //val name = it?.displayName
-            val email = it?.email
-            //val photoUrl = it?.photoUrl
-
-            pref.setData(MyApplication.Key.EMAIL.toString(), email.toString())
-
-            Log.d("test", email.toString())
-        }
-    }
-
     override fun getSchoolInfo(schoolKind: String, region: String, schoolType: String) {
 
         view.setProgressStatus(true)

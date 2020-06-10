@@ -10,7 +10,7 @@ class PreferenceManager @Inject constructor(context: Context) {
 
     private val pref = PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun getData(key: String): String? = pref.getString(key, null)
+    fun getData(key: String): String? = pref.getString(key, "")
 
     fun setData(key : String, value : String) = pref.edit().putString(key, value).commit()
 

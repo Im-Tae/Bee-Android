@@ -8,6 +8,12 @@ class MainContract {
     interface View : BaseView<Presenter>, android.view.View.OnClickListener {
 
         fun finishAffinityActivity()
+
+        fun finishActivity()
+
+        fun onClickLogoutButton()
+
+        fun onClickChangeSchoolButton()
     }
 
     interface Presenter : BasePresenter<View> {
@@ -17,5 +23,9 @@ class MainContract {
         fun getUserEmail(): String
 
         fun getSchoolName(): String
+
+        fun logout()
+
+        fun changeSchool(schoolName: String)
     }
 }

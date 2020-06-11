@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.gsm.bee_assistant_android.R
@@ -13,6 +14,7 @@ import com.gsm.bee_assistant_android.databinding.ActivitySetSchoolBinding
 import com.gsm.bee_assistant_android.ui.contract.SetSchoolContract
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_set_school.*
+import kotlinx.android.synthetic.main.set_school_layout.*
 import javax.inject.Inject
 
 class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -53,7 +55,7 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.setSchool_button -> {
-                presenter.setSchoolName(schoolName_spinner.selectedItem.toString())
+                presenter.setSchoolName(school_Name_spinner.selectedItem.toString())
                 startActivity(MainActivity::class.java)
             }
             R.id.skip_button -> startActivity(MainActivity::class.java)
@@ -67,6 +69,10 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
         region_spinner.onItemSelectedListener = this
         setSchool_button.setOnClickListener(this)
         skip_button.setOnClickListener(this)
+
+        region_spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, presenter.regionList)
+        school_Kind_spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, presenter.schoolKindList)
+        school_Name_spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, presenter.schoolNameList)
     }
 
     override fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -80,7 +86,7 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
             else -> loading_progress.stop()
         }
 
-        schoolName_spinner.isEnabled = !bool
+        school_Name_spinner.isEnabled = !bool
     }
 
 }

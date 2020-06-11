@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginStart="10sp"
+    android:layout_marginEnd="10sp">
+
+    <include layout="@layout/set_school_layout"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="0sp"
+            android:layout_height="60sp"
+            android:layout_marginEnd="10sp"
+            app:layout_constraintEnd_toStartOf="@+id/confirmButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@drawable/gray_button"
+            style="@style/button_font_orange"
+            android:text="취소"/>
+
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="0sp"
+            android:layout_height="60sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cancelButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:theme="@style/spinnerTheme"
+            android:background="@drawable/orange_button"
+            style="@style/button_font_white"
+            android:text="확인"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

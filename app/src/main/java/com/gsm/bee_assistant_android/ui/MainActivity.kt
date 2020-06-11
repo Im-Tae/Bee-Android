@@ -11,6 +11,7 @@ import com.gsm.bee_assistant_android.base.BaseActivity
 import com.gsm.bee_assistant_android.databinding.ActivityMainBinding
 import com.gsm.bee_assistant_android.databinding.NavigationHeaderBinding
 import com.gsm.bee_assistant_android.ui.contract.MainContract
+import com.gsm.bee_assistant_android.ui.dialog.SetSchoolDialog
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -60,6 +61,23 @@ class MainActivity : BaseActivity(), MainContract.View {
         }
     }
 
+    override fun onClickLogoutButton() = presenter.logout()
+
+    override fun onClickChangeSchoolButton() {
+
+        val dialog = SetSchoolDialog()
+
+        dialog.let {
+
+            it.listener = { schoolName ->
+                bindingNavigationHeader.userSchoolName.text = schoolName
+                presenter.changeSchool(schoolName)
+            }
+
+            it.show(supportFragmentManager, "setSchoolDialog")
+        }
+    }
+
     override fun onBackPressed() {
 
         when {
@@ -73,4 +91,6 @@ class MainActivity : BaseActivity(), MainContract.View {
     override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }
 
     override fun finishAffinityActivity() = finishAffinity()
+
+    override fun finishActivity() = finish()
 }

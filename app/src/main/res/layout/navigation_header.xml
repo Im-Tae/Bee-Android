@@ -60,7 +60,8 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:gravity="center_vertical"
-                android:inputType="text"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="#717171"/>
 
             <Button
@@ -130,7 +131,8 @@
                 android:paddingStart="15dp"
                 android:paddingEnd="15dp"
                 android:gravity="center_vertical"
-                android:inputType="text"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="#717171" />
 
             <Button

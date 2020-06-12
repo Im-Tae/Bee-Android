@@ -8,7 +8,6 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.gsm.bee_assistant_android.R
 import kotlinx.android.synthetic.main.set_school_dialog.*
-import kotlinx.android.synthetic.main.set_school_layout.*
 
 class SetSchoolDialog : DialogFragment() {
 
@@ -31,7 +30,7 @@ class SetSchoolDialog : DialogFragment() {
 
             dismiss()
 
-            listener.invoke(school_Name_spinner.selectedItem.toString())
+            //listener.invoke(school_Name_spinner.selectedItem.toString())
         }
 
         cancelButton.setOnClickListener { dismiss() }

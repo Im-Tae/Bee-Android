@@ -14,7 +14,6 @@ import com.gsm.bee_assistant_android.databinding.ActivitySetSchoolBinding
 import com.gsm.bee_assistant_android.ui.contract.SetSchoolContract
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_set_school.*
-import kotlinx.android.synthetic.main.set_school_layout.*
 import javax.inject.Inject
 
 class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.OnItemSelectedListener, View.OnClickListener {
@@ -69,10 +68,6 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
         region_spinner.onItemSelectedListener = this
         setSchool_button.setOnClickListener(this)
         skip_button.setOnClickListener(this)
-
-        region_spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, presenter.regionList)
-        school_Kind_spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, presenter.schoolKindList)
-        school_Name_spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, presenter.schoolNameList)
     }
 
     override fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

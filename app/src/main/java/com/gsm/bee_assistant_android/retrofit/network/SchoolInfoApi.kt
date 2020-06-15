@@ -29,4 +29,14 @@ interface SchoolInfoApi {
         @Query("region") region: String,
         @Query("sch1") schoolType: String
     ) : Call<SchoolInfo>
+
+    @GET("getOpenApi")
+    fun getAllSchoolInfo(
+        @Query("apiKey") apiKey: String,
+        @Query("svcType") svcType: String = "api",
+        @Query("svcCode") svcCode: String = "SCHOOL",
+        @Query("contentType") contentType: String = "json",
+        @Query("gubun") schoolKind: String,
+        @Query("perPage") perPage: String = "10000"
+    ): Observable<SchoolInfo>
 }

@@ -58,7 +58,6 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
                 startActivity(MainActivity::class.java)
             }
             R.id.skip_button -> startActivity(MainActivity::class.java)
-
         }
     }
 

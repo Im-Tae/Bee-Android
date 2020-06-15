@@ -11,7 +11,6 @@ import com.gsm.bee_assistant_android.base.BaseActivity
 import com.gsm.bee_assistant_android.databinding.ActivityMainBinding
 import com.gsm.bee_assistant_android.databinding.NavigationHeaderBinding
 import com.gsm.bee_assistant_android.ui.contract.MainContract
-import com.gsm.bee_assistant_android.ui.dialog.SetSchoolDialog
 import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
@@ -65,7 +64,7 @@ class MainActivity : BaseActivity(), MainContract.View {
 
     override fun onClickChangeSchoolButton() {
 
-        val dialog = SetSchoolDialog()
+        val dialog = SetSchoolDialogFragment()
 
         dialog.let {
 

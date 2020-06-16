@@ -10,6 +10,6 @@ class SetSchoolDialogContract {
 
     interface Presenter : BasePresenter<View> {
 
-        fun getSchoolName()
+        fun getSchoolName(): MutableList<String>
     }
 }

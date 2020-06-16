@@ -11,5 +11,5 @@ abstract class FragmentModule {
 
     @FragmentScope
     @ContributesAndroidInjector(modules = [SetSchoolDialogModule::class])
-    abstract fun setSchoolDialog(): SetSchoolDialogFragment
+    abstract fun setSchoolDialogFragment(): SetSchoolDialogFragment
 }

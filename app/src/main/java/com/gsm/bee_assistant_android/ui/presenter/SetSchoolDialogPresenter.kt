@@ -31,7 +31,8 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    override fun getSchoolName() {
+    // 데이터 받아오는 부분 수정해야됨 (학교 이름 제대로 안 불러와지는 오류)
+    override fun getSchoolName(): MutableList<String> {
 
         for (i in 0 until 3) {
             addDisposable(
@@ -63,6 +64,8 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
                     })
             )
         }
+
+        return schoolNameList
     }
 
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }

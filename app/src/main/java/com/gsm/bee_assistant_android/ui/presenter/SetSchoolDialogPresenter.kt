@@ -31,12 +31,14 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    // 데이터 받아오는 부분 수정해야됨 (학교 이름 제대로 안 불러와지는 오류)
     override fun getSchoolName(): MutableList<String> {
 
+        schoolNameList.clear()
+
         for (i in 0 until 3) {
+
             addDisposable(
-                schoolNameRetrofit.getAllSchoolInfo(apiKey = MyApplication.Api_Key, schoolKind = schoolKindIdList[i])
+                schoolNameRetrofit.getAllSchoolInfo(apiKey = MyApplication.Api_Key, schoolKind = schoolKindIdList[i], perPage = "10000")
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .retryWhen {
@@ -50,8 +52,6 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
                     }
                     .subscribeWith(object : DisposableObserver<SchoolInfo>() {
                         override fun onNext(schoolInfo: SchoolInfo) {
-
-                            schoolNameList.clear()
 
                             for(index in 0 until schoolInfo.dataSearch!!.content!!.size) {
                                 schoolNameList.add(schoolInfo.dataSearch.content!![index].schoolName!!)

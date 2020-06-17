@@ -37,6 +37,6 @@ interface SchoolInfoApi {
         @Query("svcCode") svcCode: String = "SCHOOL",
         @Query("contentType") contentType: String = "json",
         @Query("gubun") schoolKind: String,
-        @Query("perPage") perPage: String = "10000"
+        @Query("perPage") perPage: String = ""
     ): Observable<SchoolInfo>
 }

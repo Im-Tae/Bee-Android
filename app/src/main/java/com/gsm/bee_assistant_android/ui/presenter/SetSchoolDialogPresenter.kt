@@ -67,8 +67,6 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
                 }
         )
 
-
-
         return schoolNameList
     }
 

@@ -1,11 +1,13 @@
 package com.gsm.bee_assistant_android.di.module
 
-import com.gsm.bee_assistant_android.di.module.login.LoginActivityModule
+import com.gsm.bee_assistant_android.di.module.login.ClassroomLoginActivityModule
+import com.gsm.bee_assistant_android.di.module.login.GoogleLoginActivityModule
 import com.gsm.bee_assistant_android.di.module.main.MainActivityModule
 import com.gsm.bee_assistant_android.di.module.setschool.SetSchoolActivityModule
 import com.gsm.bee_assistant_android.di.module.splash.SplashActivityModule
 import com.gsm.bee_assistant_android.di.scope.ActivityScope
-import com.gsm.bee_assistant_android.ui.login.LoginActivity
+import com.gsm.bee_assistant_android.ui.login.classroom.ClassroomLoginActivity
+import com.gsm.bee_assistant_android.ui.login.google.GoogleLoginActivity
 import com.gsm.bee_assistant_android.ui.main.MainActivity
 import com.gsm.bee_assistant_android.ui.setschool.SetSchoolActivity
 import com.gsm.bee_assistant_android.ui.splash.SplashActivity
@@ -20,8 +22,12 @@ abstract class ActivityModule {
     abstract fun splashActivity(): SplashActivity
 
     @ActivityScope
-    @ContributesAndroidInjector(modules = [LoginActivityModule::class])
-    abstract fun loginActivity(): LoginActivity
+    @ContributesAndroidInjector(modules = [GoogleLoginActivityModule::class])
+    abstract fun googleLoginActivity(): GoogleLoginActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = [ClassroomLoginActivityModule::class])
+    abstract fun classroomLoginActivity(): ClassroomLoginActivity
 
     @ActivityScope
     @ContributesAndroidInjector(modules = [SetSchoolActivityModule::class])

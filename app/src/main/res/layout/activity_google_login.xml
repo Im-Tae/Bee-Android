@@ -3,8 +3,8 @@
 <layout>
     <data>
         <variable
-            name="login"
-            type="com.gsm.bee_assistant_android.ui.login.LoginActivity" />
+            name="googleLogin"
+            type="com.gsm.bee_assistant_android.ui.login.google.GoogleLoginActivity" />
     </data>
 
     <LinearLayout
@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@android:color/white"
-        tools:context=".ui.login.LoginActivity">
+        tools:context=".ui.login.google.GoogleLoginActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                 android:background="@drawable/orange_button"
                 style="@style/button_font_white"
                 android:text="Google 계정으로 로그인"
-                android:onClick="@{() -> login.init()}"/>
+                android:onClick="@{() -> googleLogin.init()}"/>
 
         </LinearLayout>
 

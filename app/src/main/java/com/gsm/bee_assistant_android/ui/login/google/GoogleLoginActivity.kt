@@ -1,4 +1,4 @@
-package com.gsm.bee_assistant_android.ui.login
+package com.gsm.bee_assistant_android.ui.login.google
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,16 +8,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
-import com.gsm.bee_assistant_android.databinding.ActivityLoginBinding
+import com.gsm.bee_assistant_android.databinding.ActivityGoogleLoginBinding
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
-class LoginActivity : BaseActivity(), LoginContract.View {
+class GoogleLoginActivity : BaseActivity(), GoogleLoginContract.View {
 
     @Inject
-    override lateinit var presenter : LoginContract.Presenter
+    override lateinit var presenter : GoogleLoginContract.Presenter
 
-    override lateinit var binding: ActivityLoginBinding
+    override lateinit var binding: ActivityGoogleLoginBinding
 
     private lateinit var googleSignInClient : GoogleSignInClient
 
@@ -25,8 +25,8 @@ class LoginActivity : BaseActivity(), LoginContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        binding.login = this
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_google_login)
+        binding.googleLogin = this
 
         AndroidInjection.inject(this)
     }

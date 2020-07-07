@@ -1,18 +1,18 @@
-package com.gsm.bee_assistant_android.ui.login
+package com.gsm.bee_assistant_android.ui.login.google
 
 import android.content.Intent
 import com.google.android.gms.auth.api.Auth
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.gsm.bee_assistant_android.di.app.MyApplication
-import com.gsm.bee_assistant_android.ui.setschool.SetSchoolActivity
+import com.gsm.bee_assistant_android.ui.login.classroom.ClassroomLoginActivity
 import com.gsm.bee_assistant_android.utils.PreferenceManager
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class LoginPresenter @Inject constructor(override val view: LoginContract.View) : LoginContract.Presenter {
+class GoogleLoginPresenter @Inject constructor(override val view: GoogleLoginContract.View) : GoogleLoginContract.Presenter {
 
     @Inject
     lateinit var pref: PreferenceManager
@@ -36,7 +36,7 @@ class LoginPresenter @Inject constructor(override val view: LoginContract.View) 
                             .getInstance()
                             .signInWithCredential(credential)
                     ).subscribe {
-                        view.startActivity(SetSchoolActivity::class.java).apply {
+                        view.startActivity(ClassroomLoginActivity::class.java).apply {
                             pref.setData(MyApplication.Key.EMAIL.toString(), account?.email.toString())
                             view.finishActivity()
                         }

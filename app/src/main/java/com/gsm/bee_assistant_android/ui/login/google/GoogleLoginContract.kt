@@ -1,10 +1,10 @@
-package com.gsm.bee_assistant_android.ui.login
+package com.gsm.bee_assistant_android.ui.login.google
 
 import android.content.Intent
 import com.gsm.bee_assistant_android.base.BasePresenter
 import com.gsm.bee_assistant_android.base.BaseView
 
-class LoginContract {
+class GoogleLoginContract {
 
     interface View : BaseView<Presenter> {
 

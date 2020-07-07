@@ -1,7 +1,7 @@
 package com.gsm.bee_assistant_android.ui.splash
 
 import com.gsm.bee_assistant_android.di.app.MyApplication
-import com.gsm.bee_assistant_android.ui.login.LoginActivity
+import com.gsm.bee_assistant_android.ui.login.google.GoogleLoginActivity
 import com.gsm.bee_assistant_android.ui.main.MainActivity
 import com.gsm.bee_assistant_android.utils.PreferenceManager
 import io.reactivex.Observable
@@ -26,7 +26,7 @@ class SplashPresenter @Inject constructor(override val view: SplashContract.View
             else ->
                 addDisposable(
                     Observable.interval(1000 * 3, TimeUnit.MILLISECONDS)
-                        .subscribe { view.startActivity(LoginActivity::class.java).apply { view.finishActivity() } }
+                        .subscribe { view.startActivity(GoogleLoginActivity::class.java).apply { view.finishActivity() } }
                 )
         }
     }

@@ -50,7 +50,7 @@ class LoginActivity : BaseActivity(), LoginContract.View {
             .requestEmail()
             .build()
 
-        googleSignInClient = GoogleSignIn.getClient(this,googleSignInOptions)
+        googleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions)
 
         presenter.googleSignIn(googleSignInClient.signInIntent)
     }

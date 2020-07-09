@@ -22,7 +22,7 @@ class RetrofitTest {
         val retrofit = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .baseUrl(MyApplication.School_Info_Url)
+            .baseUrl(BuildConfig.SCHOOL_INFO_URL)
             .build()
 
         return retrofit.create(SchoolInfoApi::class.java)
@@ -36,7 +36,7 @@ class RetrofitTest {
     @Test
     fun getSchoolInfoTest() {
 
-        val call = provideSchoolNameRetrofit().getSchoolInfoTest(apiKey = MyApplication.Api_Key, schoolKind = "elem_list", region =  "100260", schoolType = "")
+        val call = provideSchoolNameRetrofit().getSchoolInfoTest(apiKey = BuildConfig.SCHOOL_API_KEY, schoolKind = "elem_list", region =  "100260", schoolType = "")
 
         val res: Response<SchoolInfo> = call.execute()
 

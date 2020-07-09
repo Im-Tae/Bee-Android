@@ -1,6 +1,7 @@
 package com.gsm.bee_assistant_android.ui.login.classroom
 
 import android.util.Log
+import com.gsm.bee_assistant_android.BuildConfig
 import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.ClassroomToken
 import com.gsm.bee_assistant_android.retrofit.network.ClassroomApi
@@ -28,7 +29,7 @@ class ClassroomLoginPresenter @Inject constructor(override val view: ClassroomLo
     override fun getClassroomUrl() {
 
         val req = Request.Builder()
-            .url(MyApplication.Base_Url + "classroom/getlink")
+            .url(BuildConfig.BASE_URL + "classroom/getlink")
             .build()
 
             OkHttpClient().newCall(req).enqueue(object : Callback{

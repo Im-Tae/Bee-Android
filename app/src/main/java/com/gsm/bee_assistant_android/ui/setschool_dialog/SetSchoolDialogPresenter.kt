@@ -2,6 +2,7 @@ package com.gsm.bee_assistant_android.ui.setschool_dialog
 
 import android.content.Context
 import android.util.Log
+import com.gsm.bee_assistant_android.BuildConfig
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
@@ -39,7 +40,7 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
         compositeDisposable.add(
             Observable.range(0, 3)
                 .subscribe{
-                    schoolNameRetrofit.getAllSchoolInfo(apiKey = MyApplication.Api_Key, schoolKind = schoolKindIdList[it], perPage = "10000")
+                    schoolNameRetrofit.getAllSchoolInfo(apiKey = BuildConfig.SCHOOL_API_KEY, schoolKind = schoolKindIdList[it], perPage = "10000")
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .retryWhen {

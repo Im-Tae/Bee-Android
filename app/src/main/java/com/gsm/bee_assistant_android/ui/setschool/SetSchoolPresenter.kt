@@ -2,6 +2,7 @@ package com.gsm.bee_assistant_android.ui.setschool
 
 import android.content.Context
 import android.util.Log
+import com.gsm.bee_assistant_android.BuildConfig
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
@@ -44,7 +45,7 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
         view.setProgressStatus(true)
 
         addDisposable(
-            schoolNameRetrofit.getSchoolInfo(apiKey = MyApplication.Api_Key, schoolKind = schoolKind, region =  region, schoolType = schoolType)
+            schoolNameRetrofit.getSchoolInfo(apiKey = BuildConfig.SCHOOL_API_KEY, schoolKind = schoolKind, region =  region, schoolType = schoolType)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .retryWhen {

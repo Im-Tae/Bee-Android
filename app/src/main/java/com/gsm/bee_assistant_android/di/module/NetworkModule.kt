@@ -1,5 +1,6 @@
 package com.gsm.bee_assistant_android.di.module
 
+import com.gsm.bee_assistant_android.BuildConfig
 import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.network.ClassroomApi
 import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
@@ -33,7 +34,7 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(provideOkHttpClient())
-            .baseUrl(MyApplication.School_Info_Url)
+            .baseUrl(BuildConfig.SCHOOL_INFO_URL)
             .build()
 
         return retrofit.create(SchoolInfoApi::class.java)
@@ -47,7 +48,7 @@ class NetworkModule {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(provideOkHttpClient())
-            .baseUrl(MyApplication.Base_Url)
+            .baseUrl(BuildConfig.BASE_URL)
             .build()
 
         return retrofit.create(ClassroomApi::class.java)

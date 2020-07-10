@@ -9,7 +9,8 @@ class MyApplication : DaggerApplication() {
     enum class Key {
         EMAIL,
         SCHOOL_NAME,
-        CLASSROOM_TOKEN
+        CLASSROOM_TOKEN,
+        USER_TOKEN
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication>

@@ -2,7 +2,9 @@ package com.gsm.bee_assistant_android
 
 import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
+import com.gsm.bee_assistant_android.retrofit.domain.user.UserToken
 import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
+import com.gsm.bee_assistant_android.retrofit.network.UserApi
 import org.junit.*
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
@@ -28,6 +30,17 @@ class RetrofitTest {
         return retrofit.create(SchoolInfoApi::class.java)
     }
 
+    private fun provideUserRetrofit(): UserApi {
+
+        val retrofit = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .baseUrl(BuildConfig.BASE_URL)
+            .build()
+
+        return retrofit.create(UserApi::class.java)
+    }
+
     @Before
     fun setup() {
         MockitoAnnotations.initMocks(this)
@@ -41,5 +54,15 @@ class RetrofitTest {
         val res: Response<SchoolInfo> = call.execute()
 
         Assert.assertEquals(res.body()!!.dataSearch!!.content!![0].schoolName.toString(), "강솔초등학교")
+    }
+
+    @Test
+    fun getUserToken() {
+
+        val call = provideUserRetrofit().getUserTokenTest("itggood2420@gmail.com")
+
+        val res: Response<UserToken> = call.execute()
+
+        println(res.body()!!.token)
     }
 }

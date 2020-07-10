@@ -12,4 +12,8 @@ interface BaseView<T> {
     fun showToast(message: String)
 
     fun startActivity(activityName : Class<*>)
+
+    fun showProgress()
+
+    fun hideProgress()
 }

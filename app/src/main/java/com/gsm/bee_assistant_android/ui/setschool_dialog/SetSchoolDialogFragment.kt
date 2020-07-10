@@ -26,6 +26,8 @@ class SetSchoolDialogFragment : BaseDialogFragment(), SetSchoolDialogContract.Vi
 
     private lateinit var progress: ProgressUtil
 
+    private lateinit var schoolNameList: MutableList<String>
+
     var listener: (String) -> Unit = { _ -> }
 
     override fun onAttach(context: Context) {
@@ -66,8 +68,6 @@ class SetSchoolDialogFragment : BaseDialogFragment(), SetSchoolDialogContract.Vi
 
     override fun init() {
 
-        lateinit var schoolNameList: MutableList<String>
-
         presenter.addDisposable(
             Observable.just(presenter.getSchoolName())
                 .subscribe { schoolNameList = it }
@@ -85,7 +85,6 @@ class SetSchoolDialogFragment : BaseDialogFragment(), SetSchoolDialogContract.Vi
             it.threshold = 1
             it.setAdapter(adapter)
         }
-
     }
 
     override fun showProgress() = progress.show()

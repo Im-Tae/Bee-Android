@@ -38,7 +38,7 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
         view.showProgress()
 
         compositeDisposable.add(
-            Observable.range(0, 3)
+            Observable.range(1, 3)
                 .subscribe{
                     schoolNameRetrofit.getAllSchoolInfo(apiKey = BuildConfig.SCHOOL_API_KEY, schoolKind = schoolKindIdList[it], perPage = "10000")
                         .observeOn(AndroidSchedulers.mainThread())
@@ -60,7 +60,7 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
                                 }
                             }
 
-                            override fun onComplete() { if (it < 1) view.hideProgress() }
+                            override fun onComplete() { if (it < 2) view.hideProgress() }
 
                             override fun onError(e: Throwable) { Log.d("error", e.message.toString()) }
                         })

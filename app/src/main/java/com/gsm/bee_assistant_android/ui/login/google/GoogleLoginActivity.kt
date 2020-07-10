@@ -9,6 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
 import com.gsm.bee_assistant_android.databinding.ActivityGoogleLoginBinding
+import com.gsm.bee_assistant_android.utils.ProgressUtil
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
@@ -21,12 +22,15 @@ class GoogleLoginActivity : BaseActivity(), GoogleLoginContract.View {
 
     private lateinit var googleSignInClient : GoogleSignInClient
 
+    private lateinit var progress: ProgressUtil
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_google_login)
         binding.googleLogin = this
+
+        progress = ProgressUtil(this)
 
         AndroidInjection.inject(this)
     }
@@ -53,6 +57,10 @@ class GoogleLoginActivity : BaseActivity(), GoogleLoginContract.View {
 
         presenter.googleSignIn(googleSignInClient.signInIntent)
     }
+
+    override fun showProgress() = progress.show()
+
+    override fun hideProgress() = progress.hide()
 
     override fun showToast(message: String) {}
 

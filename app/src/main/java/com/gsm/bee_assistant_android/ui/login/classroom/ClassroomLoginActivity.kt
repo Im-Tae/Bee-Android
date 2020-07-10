@@ -24,9 +24,9 @@ class ClassroomLoginActivity : AppCompatActivity(), ClassroomLoginContract.View 
     @Inject
     override lateinit var presenter: ClassroomLoginContract.Presenter
 
-    lateinit var progress: ProgressUtil
-
     override lateinit var binding: ActivityClassroomLoginBinding
+
+    private lateinit var progress: ProgressUtil
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

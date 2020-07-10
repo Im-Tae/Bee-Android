@@ -76,6 +76,14 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
         skip_button.setOnClickListener(this)
     }
 
+    override fun showProgress() {
+
+    }
+
+    override fun hideProgress() {
+
+    }
+
     override fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
     override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }

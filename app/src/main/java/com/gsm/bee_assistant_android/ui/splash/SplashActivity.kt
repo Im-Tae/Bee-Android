@@ -36,6 +36,10 @@ class SplashActivity : BaseActivity(), SplashContract.View {
 
     override fun init() = presenter.checkUserInfo()
 
+    override fun showProgress() {}
+
+    override fun hideProgress() {}
+
     override fun showToast(message: String)  = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
     override fun startActivity(activityName: Class<*>) { startActivity(Intent(this, activityName)) }

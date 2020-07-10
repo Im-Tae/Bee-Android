@@ -5,12 +5,7 @@ import com.gsm.bee_assistant_android.base.BaseView
 
 class SetSchoolDialogContract {
 
-    interface View : BaseView<Presenter> {
-
-        fun showProgress()
-
-        fun hideProgress()
-    }
+    interface View : BaseView<Presenter>
 
     interface Presenter : BasePresenter<View> {
 

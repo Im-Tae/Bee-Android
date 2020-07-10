@@ -16,10 +16,6 @@ class ClassroomLoginContract {
 
         fun showClassroomWebView(url: String)
 
-        fun showProgress()
-
-        fun hideProgress()
-
         fun finishActivity()
 
         fun changeVisibility(bool: Boolean)

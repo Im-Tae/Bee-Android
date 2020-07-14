@@ -21,28 +21,26 @@
 
 MVP Architecture
 
-RxJava2
+RxJava2, RxKotlin, RxAndroid
 
 Dagger2
 
-DataBinding
+DataBinding, RxBinding
 
-Retroift2
-
-OkHttp
+Retroift2, OkHttp
 
 R8
+
+Lottie
+
+Mockito, Espresso
+
+Security Library
 
 </br></br>
 
 ## 📼 Prototype
 
-
-
-</br></br>
-
-##  📂 Library
-
-
+준비 중
 
 </br></br>

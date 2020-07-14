@@ -1,6 +1,6 @@
 package com.gsm.bee_assistant_android.retrofit.network
 
-import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
+import com.gsm.bee_assistant_android.retrofit.domain.school.SchoolInfo
 import io.reactivex.Observable
 import retrofit2.Call
 import retrofit2.http.GET

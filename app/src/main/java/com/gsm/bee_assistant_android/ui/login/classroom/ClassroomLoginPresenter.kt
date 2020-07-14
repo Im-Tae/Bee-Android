@@ -5,10 +5,13 @@ import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.classroom.ClassroomLink
 import com.gsm.bee_assistant_android.retrofit.domain.classroom.ClassroomToken
 import com.gsm.bee_assistant_android.retrofit.domain.classroom.ClassroomTokenUpdate
+import com.gsm.bee_assistant_android.retrofit.domain.user.UserInfo
 import com.gsm.bee_assistant_android.retrofit.domain.user.UserToken
 import com.gsm.bee_assistant_android.retrofit.network.ClassroomApi
 import com.gsm.bee_assistant_android.retrofit.network.UserApi
+import com.gsm.bee_assistant_android.ui.main.MainActivity
 import com.gsm.bee_assistant_android.ui.setschool.SetSchoolActivity
+import com.gsm.bee_assistant_android.utils.DataSingleton
 import com.gsm.bee_assistant_android.utils.PreferenceManager
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -73,11 +76,11 @@ class ClassroomLoginPresenter @Inject constructor(override val view: ClassroomLo
 
     override fun setClassroomToken(classroomToken: ClassroomToken) {
 
-        val email = pref.getData(MyApplication.Key.EMAIL.toString())!!
+        val email = DataSingleton.getInstance()?._userInfo?.email!!
         val accessToken = classroomToken.access_token!!
         val refreshToken =  classroomToken.refresh_token!!
 
-        Log.d("valueTest", "email : $email accessToken : $accessToken refreshToken : $refreshToken")
+        //Log.d("valueTest", "email : $email accessToken : $accessToken refreshToken : $refreshToken")
 
         val classroomTokenUpdate = ClassroomTokenUpdate(email = email, access_token = accessToken, refresh_token = refreshToken)
 
@@ -87,24 +90,31 @@ class ClassroomLoginPresenter @Inject constructor(override val view: ClassroomLo
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object: DisposableObserver<UserToken>(){
 
-                    override fun onNext(userToken: UserToken) { pref.setData(MyApplication.Key.USER_TOKEN.toString(), userToken.token) }
-
-                    override fun onComplete() {
-                        view.hideProgress().apply {
-                            // 나중에 서버 DB에서 데이터 가져와서 데이터로 if문 작성해야함.
-                            if (pref.getData(MyApplication.Key.EMAIL.toString()) != "") {
-                                view.startActivity(SetSchoolActivity::class.java)
-                                view.finishActivity()
-                            }
-                            else view.finishActivity()
-                        }
+                    override fun onNext(userToken: UserToken) {
+                        pref.setData(MyApplication.Key.USER_TOKEN.toString(), userToken.token)
+                        Log.d("userToken", userToken.token)
                     }
+
+                    override fun onComplete() = checkUserInfoToChangeActivity()
 
                     override fun onError(e: Throwable) { Log.e("error", e.message.toString()); view.hideProgress() }
                 })
         )
+    }
 
-        pref.setClassroomToken(MyApplication.Key.CLASSROOM_TOKEN.toString(), classroomToken)
+    override fun checkUserInfoToChangeActivity() {
+
+        val schoolName = DataSingleton.getInstance()?._userInfo?.s_name
+
+        view.hideProgress().apply {
+            if (schoolName == null || schoolName == "") {
+                view.startActivity(SetSchoolActivity::class.java)
+                view.finishActivity()
+            } else {
+                view.startActivity(MainActivity::class.java)
+                view.finishActivity()
+            }
+        }
     }
 
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }

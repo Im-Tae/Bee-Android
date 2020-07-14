@@ -1,14 +1,11 @@
 package com.gsm.bee_assistant_android
 
-import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
 import com.gsm.bee_assistant_android.retrofit.domain.classroom.ClassroomTokenUpdate
-import com.gsm.bee_assistant_android.retrofit.domain.user.UserToken
 import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
 import com.gsm.bee_assistant_android.retrofit.network.UserApi
 import org.junit.*
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -78,5 +75,14 @@ class RetrofitTest {
         //val res: Response<UserToken> = call.execute()
 
         //println(res.body()?.token)
+    }
+
+    @Test
+    fun getUserInfo() {
+        val call = provideUserRetrofit().getUserInfoTest("여기에 userToken")
+
+        //val res: Response<UserInfo> = call.execute()
+
+        //println(res.body()?.refresh_token)
     }
 }

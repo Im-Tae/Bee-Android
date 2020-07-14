@@ -2,6 +2,7 @@ package com.gsm.bee_assistant_android.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
@@ -46,8 +47,8 @@ class MainActivity : BaseActivity(), MainContract.View {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter.disposeDisposable()
+        super.onDestroy()
     }
 
     override fun onClick(view: View) {

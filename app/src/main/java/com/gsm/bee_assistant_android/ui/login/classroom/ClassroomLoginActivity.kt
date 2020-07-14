@@ -36,8 +36,8 @@ class ClassroomLoginActivity : AppCompatActivity(), ClassroomLoginContract.View 
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter.disposeDisposable()
+        super.onDestroy()
     }
 
     override fun showClassroomWebView(url: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))

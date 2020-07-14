@@ -11,6 +11,8 @@ class GoogleLoginContract {
         fun showLogin(signInIntent: Intent)
 
         fun finishActivity()
+
+        fun onClickGoogleLoginButton()
     }
 
     interface Presenter : BasePresenter<View> {
@@ -18,5 +20,9 @@ class GoogleLoginContract {
         fun googleLogin(requestCode: Int, resultCode: Int, data: Intent?)
 
         fun googleSignIn(signInIntent : Intent)
+
+        fun getUserInfo()
+
+        fun checkUserInfoToChangeActivity()
     }
 }

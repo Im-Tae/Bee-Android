@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.classroom.ClassroomToken
 import com.gsm.bee_assistant_android.ui.login.google.GoogleLoginActivity
+import com.gsm.bee_assistant_android.utils.DataSingleton
 import com.gsm.bee_assistant_android.utils.PreferenceManager
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
@@ -29,11 +30,7 @@ class MainPresenter @Inject constructor(override val view: MainContract.View) : 
 
     override fun logout() {
 
-        pref.let {
-            it.setData(MyApplication.Key.EMAIL.toString(), "")
-            it.setData(MyApplication.Key.SCHOOL_NAME.toString(), "")
-            it.setClassroomToken(MyApplication.Key.CLASSROOM_TOKEN.toString(), ClassroomToken(access_token = null, refresh_token = null))
-        }
+        pref.setData(MyApplication.Key.USER_TOKEN.toString(), "")
 
         addDisposable(
             Observable.just(FirebaseAuth.getInstance().signOut())
@@ -41,11 +38,13 @@ class MainPresenter @Inject constructor(override val view: MainContract.View) : 
         )
     }
 
-    override fun changeSchool(schoolName: String) { pref.setData(MyApplication.Key.SCHOOL_NAME.toString(), schoolName) }
+    override fun changeSchool(schoolName: String) {
+        // 여기에 학교 이름 변경 통신 작성
+    }
 
-    override fun getUserEmail(): String = pref.getData(MyApplication.Key.EMAIL.toString())!!
+    override fun getUserEmail(): String = DataSingleton.getInstance()?._userInfo?.email!!
 
-    override fun getSchoolName(): String = pref.getData(MyApplication.Key.SCHOOL_NAME.toString())!!
+    override fun getSchoolName(): String = DataSingleton.getInstance()?._userInfo?.s_name!!
 
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }
 

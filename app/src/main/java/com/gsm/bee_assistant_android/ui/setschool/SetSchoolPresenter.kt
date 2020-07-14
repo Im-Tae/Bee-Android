@@ -5,8 +5,9 @@ import android.util.Log
 import com.gsm.bee_assistant_android.BuildConfig
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.di.app.MyApplication
-import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
+import com.gsm.bee_assistant_android.retrofit.domain.school.SchoolInfo
 import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
+import com.gsm.bee_assistant_android.utils.DataSingleton
 import com.gsm.bee_assistant_android.utils.NetworkUtil
 import com.gsm.bee_assistant_android.utils.PreferenceManager
 import io.reactivex.Observable
@@ -92,7 +93,9 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
         return false
     }
 
-    override fun setSchoolName(schoolName: String) { pref.setData(MyApplication.Key.SCHOOL_NAME.toString(), schoolName) }
+    override fun setSchoolName(schoolName: String) {
+        DataSingleton.getInstance()?._userInfo?.s_name = schoolName
+    }
 
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }
 

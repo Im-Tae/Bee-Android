@@ -1,6 +1,7 @@
 package com.gsm.bee_assistant_android.retrofit.network
 
 import com.gsm.bee_assistant_android.retrofit.domain.classroom.ClassroomTokenUpdate
+import com.gsm.bee_assistant_android.retrofit.domain.user.UserInfo
 import com.gsm.bee_assistant_android.retrofit.domain.user.UserToken
 import io.reactivex.Observable
 import retrofit2.Call
@@ -21,4 +22,10 @@ interface UserApi {
 
     @PUT("auth")
     fun updateClassroomTokenTest(@Body classroomTokenUpdate: ClassroomTokenUpdate): Call<UserToken>
+
+    @GET("auth")
+    fun getUserInfo(@Header("x-access-token") token: String): Observable<UserInfo>
+
+    @GET("auth")
+    fun getUserInfoTest(@Header("x-access-token") token: String): Call<UserInfo>
 }

@@ -6,9 +6,13 @@ import com.google.android.gms.auth.api.Auth
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.gsm.bee_assistant_android.di.app.MyApplication
+import com.gsm.bee_assistant_android.retrofit.domain.user.UserInfo
 import com.gsm.bee_assistant_android.retrofit.domain.user.UserToken
 import com.gsm.bee_assistant_android.retrofit.network.UserApi
 import com.gsm.bee_assistant_android.ui.login.classroom.ClassroomLoginActivity
+import com.gsm.bee_assistant_android.ui.main.MainActivity
+import com.gsm.bee_assistant_android.ui.setschool.SetSchoolActivity
+import com.gsm.bee_assistant_android.utils.DataSingleton
 import com.gsm.bee_assistant_android.utils.PreferenceManager
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -60,25 +64,50 @@ class GoogleLoginPresenter @Inject constructor(override val view: GoogleLoginCon
             userRetrofit.getUserToken(email)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribeWith(object : DisposableObserver<UserToken>(){
+                .subscribeWith(object: DisposableObserver<UserToken>(){
 
                     override fun onNext(userToken: UserToken) {
                         Log.i("userToken", userToken.token)
                         pref.setData(MyApplication.Key.USER_TOKEN.toString(), userToken.token)
                     }
 
-                    override fun onComplete() {
-                        view.hideProgress()
-
-                        view.startActivity(ClassroomLoginActivity::class.java).apply {
-                            pref.setData(MyApplication.Key.EMAIL.toString(), email)
-                            view.finishActivity()
-                        }
-                    }
+                    override fun onComplete() = getUserInfo()
 
                     override fun onError(e: Throwable) {}
                 })
         )
+    }
+
+    override fun getUserInfo() {
+        addDisposable(
+            userRetrofit.getUserInfo(pref.getData(MyApplication.Key.USER_TOKEN.toString())!!)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(object: DisposableObserver<UserInfo>(){
+
+                    override fun onNext(userInfo: UserInfo) { DataSingleton.getInstance()?._userInfo = userInfo }
+
+                    override fun onComplete() { view.hideProgress().apply { checkUserInfoToChangeActivity() } }
+
+                    override fun onError(e: Throwable) {}
+                })
+        )
+    }
+
+    override fun checkUserInfoToChangeActivity() {
+
+        val userInfo = DataSingleton.getInstance()?._userInfo!!
+
+        if (userInfo.access_token == "" || userInfo.access_token == null) {
+            view.startActivity(ClassroomLoginActivity::class.java)
+            view.finishActivity()
+        } else if (userInfo.s_name == "" || userInfo.s_name == null) {
+            view.startActivity(SetSchoolActivity::class.java)
+            view.finishActivity()
+        } else {
+            view.startActivity(MainActivity::class.java)
+            view.finishActivity()
+        }
     }
 
     override fun googleSignIn(signInIntent: Intent) = view.showLogin(signInIntent)

@@ -13,5 +13,7 @@ class SplashContract {
     interface Presenter : BasePresenter<View> {
 
         fun checkUserInfo()
+
+        fun getUserInfo()
     }
 }

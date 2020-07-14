@@ -28,5 +28,7 @@ class ClassroomLoginContract {
         fun getClassroomToken(token: String)
 
         fun setClassroomToken(classroomToken: ClassroomToken)
+
+        fun checkUserInfoToChangeActivity()
     }
 }

@@ -1,4 +1,4 @@
-package com.gsm.bee_assistant_android.retrofit.domain
+package com.gsm.bee_assistant_android.retrofit.domain.school
 
 data class SchoolInfo(
     val dataSearch : DataSearch?= null

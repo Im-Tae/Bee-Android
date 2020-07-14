@@ -12,6 +12,6 @@ interface ClassroomApi {
     fun getClassroomLink(): Call<ClassroomLink>
 
     @FormUrlEncoded
-    @POST("classroom/getToken")
+    @POST("classroom")
     fun getClassroomToken(@Field("code") code: String): Observable<ClassroomToken>
 }

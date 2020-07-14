@@ -4,8 +4,7 @@ import android.content.Context
 import android.util.Log
 import com.gsm.bee_assistant_android.BuildConfig
 import com.gsm.bee_assistant_android.R
-import com.gsm.bee_assistant_android.di.app.MyApplication
-import com.gsm.bee_assistant_android.retrofit.domain.SchoolInfo
+import com.gsm.bee_assistant_android.retrofit.domain.school.SchoolInfo
 import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
 import com.gsm.bee_assistant_android.utils.NetworkUtil
 import io.reactivex.Observable

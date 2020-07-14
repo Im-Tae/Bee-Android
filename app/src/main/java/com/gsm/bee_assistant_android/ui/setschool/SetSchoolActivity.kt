@@ -35,8 +35,8 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter.disposeDisposable()
+        super.onDestroy()
     }
 
     override fun onBackPressed() {}

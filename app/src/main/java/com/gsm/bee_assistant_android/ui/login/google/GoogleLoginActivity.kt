@@ -36,8 +36,8 @@ class GoogleLoginActivity : BaseActivity(), GoogleLoginContract.View {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         presenter.disposeDisposable()
+        super.onDestroy()
     }
 
     override fun showLogin(signInIntent: Intent) = startActivityForResult(signInIntent, 100)
@@ -47,7 +47,9 @@ class GoogleLoginActivity : BaseActivity(), GoogleLoginContract.View {
         presenter.googleLogin(requestCode, resultCode, data)
     }
 
-    override fun init() {
+    override fun init() {}
+
+    override fun onClickGoogleLoginButton() {
         val googleSignInOptions= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()

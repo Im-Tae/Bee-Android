@@ -7,9 +7,6 @@ import dagger.android.DaggerApplication
 class MyApplication : DaggerApplication() {
 
     enum class Key {
-        EMAIL,
-        SCHOOL_NAME,
-        CLASSROOM_TOKEN,
         USER_TOKEN
     }
 

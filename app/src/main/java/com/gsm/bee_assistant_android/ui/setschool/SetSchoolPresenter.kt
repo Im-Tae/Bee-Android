@@ -73,8 +73,10 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
                         schoolNameList.clear()
                         schoolNameList.add("학교 이름")
 
-                        for(index in 0 until schoolInfo.dataSearch!!.content!!.size) {
-                            schoolNameList.add(schoolInfo.dataSearch.content!![index].schoolName!!)
+                        val content = schoolInfo.dataSearch!!.content!!
+
+                        for(index in 0 until content.size) {
+                            schoolNameList.add(content[index].schoolName!!)
                         }
                     }
 
@@ -95,6 +97,7 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
     }
 
     override fun checkSpinnerIndex(region: String, schoolType: String, schoolName: String): Boolean {
+
         if(regionList.indexOf(region) != 0 && schoolKindList.indexOf(schoolType) != 0 && schoolNameList.indexOf(schoolName) != 0) return true
 
         return false

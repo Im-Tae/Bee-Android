@@ -131,7 +131,7 @@ class ClassroomLoginPresenter @Inject constructor(override val view: ClassroomLo
         val schoolName = DataSingleton.getInstance()?._userInfo?.name
 
         view.hideProgress().apply {
-            if (schoolName == null || schoolName == "") {
+            if (schoolName == null) {
                 view.startActivity(SetSchoolActivity::class.java)
                 view.finishActivity()
             } else {

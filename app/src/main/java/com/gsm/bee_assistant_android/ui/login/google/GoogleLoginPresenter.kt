@@ -121,10 +121,10 @@ class GoogleLoginPresenter @Inject constructor(override val view: GoogleLoginCon
 
         val userInfo = DataSingleton.getInstance()?._userInfo!!
 
-        if (userInfo.access_token == "" || userInfo.access_token == null) {
+        if (userInfo.access_token == null) {
             view.startActivity(ClassroomLoginActivity::class.java)
             view.finishActivity()
-        } else if (userInfo.name == "" || userInfo.name == null) {
+        } else if (userInfo.name == null) {
             view.startActivity(SetSchoolActivity::class.java)
             view.finishActivity()
         } else {

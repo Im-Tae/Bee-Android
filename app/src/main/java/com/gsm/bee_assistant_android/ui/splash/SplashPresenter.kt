@@ -61,7 +61,7 @@ class SplashPresenter @Inject constructor(override val view: SplashContract.View
                 }
                 .subscribeWith(object: DisposableObserver<UserInfo>(){
 
-                    override fun onNext(userInfo: UserInfo) { DataSingleton.getInstance()?._userInfo = userInfo }
+                    override fun onNext(userInfo: UserInfo) { DataSingleton.getInstance()?._userInfo = userInfo; Log.d("userInfoTest1", userInfo.toString()) }
 
                     override fun onComplete() = checkUserInfoToChangeActivity()
 
@@ -74,17 +74,21 @@ class SplashPresenter @Inject constructor(override val view: SplashContract.View
 
         val userInfo = DataSingleton.getInstance()?._userInfo!!
 
-        Log.d("userInfoTest", userInfo.toString())
+        Log.d("userInfoTest2", userInfo.toString())
 
-        if (userInfo.access_token == "" || userInfo.access_token == null) {
-            view.startActivity(ClassroomLoginActivity::class.java)
-            view.finishActivity()
-        } else if (userInfo.name == "" || userInfo.name == null) {
-            view.startActivity(SetSchoolActivity::class.java)
-            view.finishActivity()
-        } else {
-            view.startActivity(MainActivity::class.java)
-            view.finishActivity()
+        when {
+            userInfo.access_token == null -> {
+                view.startActivity(ClassroomLoginActivity::class.java)
+                view.finishActivity()
+            }
+            userInfo.name  == null -> {
+                view.startActivity(SetSchoolActivity::class.java)
+                view.finishActivity()
+            }
+            else -> {
+                view.startActivity(MainActivity::class.java)
+                view.finishActivity()
+            }
         }
     }
 

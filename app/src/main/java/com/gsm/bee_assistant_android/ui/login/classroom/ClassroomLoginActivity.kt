@@ -60,7 +60,11 @@ class ClassroomLoginActivity : AppCompatActivity(), ClassroomLoginContract.View 
 
     override fun onClickCheckButton() = presenter.getClassroomToken(token_editText.text.toString())
 
-    override fun onBackPressed() = changeVisibility(false)
+    override fun onBackPressed() {
+        if (classroom_connect_layout.visibility == View.GONE)
+            changeVisibility(false)
+        else super.onBackPressed()
+    }
 
     override fun changeVisibility(bool: Boolean) {
 

@@ -17,74 +17,104 @@
         android:fitsSystemWindows="true"
         tools:context=".ui.main.MainActivity">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <include layout="@layout/title_bar"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+            <LinearLayout
                 android:orientation="vertical"
-                android:gravity="center">
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/bottomNavigation" >
 
-                <LinearLayout
-                    android:id="@+id/explainText"
+                <include layout="@layout/title_bar"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="70dp"
-                        android:layout_marginStart="30dp"
-                        style="@style/title_font_dark_orange"
-                        android:text="'야, 꿀벌'"/>
+                    <FrameLayout
+                        android:id="@+id/layout_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        style="@style/title_font_black"
-                        android:text="이라고 불러보세요." />
+                        <LinearLayout
+                            android:id="@+id/explainText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="50dp"
-                        android:layout_marginStart="30dp"
-                        style="@style/content_font"
-                        android:textColor="#393939"
-                        android:text="&quot;야, 꿀벌, 오늘 중식이 뭐야&quot;" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="70dp"
+                                android:layout_marginStart="30dp"
+                                style="@style/title_font_dark_orange"
+                                android:text="'야, 꿀벌'"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="30dp"
-                        style="@style/content_font"
-                        android:textColor="#717171"
-                        android:text="&quot;야, 꿀벌, 오늘 해야 할 과제가 뭐야&quot;" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                style="@style/title_font_black"
+                                android:text="이라고 불러보세요." />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginStart="30dp"
-                        style="@style/content_font"
-                        android:textColor="#989898"
-                        android:text="&quot;야, 꿀벌, 오늘 날씨는 어때&quot;" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="50dp"
+                                android:layout_marginStart="30dp"
+                                style="@style/content_font"
+                                android:textColor="#393939"
+                                android:text="&quot;야, 꿀벌, 오늘 중식이 뭐야&quot;" />
 
-                </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginStart="30dp"
+                                style="@style/content_font"
+                                android:textColor="#717171"
+                                android:text="&quot;야, 꿀벌, 오늘 해야 할 과제가 뭐야&quot;" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginStart="30dp"
+                                style="@style/content_font"
+                                android:textColor="#989898"
+                                android:text="&quot;야, 꿀벌, 오늘 날씨는 어때&quot;" />
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottomNavigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:itemTextColor="@color/bottom_bar_item_selector"
+                app:itemIconTint="@color/bottom_bar_item_selector"
+                app:itemBackground="@color/white"
+                app:menu="@menu/bottom_navigation_menu"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
             android:layout_width="wrap_content"

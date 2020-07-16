@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 data class UserInfo(
     @SerializedName("email")
     var email: String,
-    @SerializedName("s_type")
+    @SerializedName("type")
     var type: String? = null,
-    @SerializedName("s_region")
+    @SerializedName("region")
     var region: String? = null,
-    @SerializedName("s_name")
+    @SerializedName("name")
     var name: String? = null,
     @SerializedName("access_token")
     var access_token: String? = null,

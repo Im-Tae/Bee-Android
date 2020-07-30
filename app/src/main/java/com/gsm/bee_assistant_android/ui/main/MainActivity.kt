@@ -7,6 +7,11 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
@@ -48,7 +53,9 @@ class MainActivity : BaseActivity(), MainContract.View, BottomNavigationView.OnN
         bindingNavigationHeader.userEmail.text = presenter.getUserEmail()
         bindingNavigationHeader.userSchoolName.text = presenter.getSchoolName()
 
-        supportFragmentManager.beginTransaction().add(R.id.frameLayout, MainFragment()).commit()
+        viewPager.adapter = ViewPagerAdapter(supportFragmentManager, lifecycle)
+        viewPager.registerOnPageChangeCallback(ViewPagerPageChangeCallback())
+
         bottomNavigation.setOnNavigationItemSelectedListener(this)
     }
 
@@ -105,22 +112,49 @@ class MainActivity : BaseActivity(), MainContract.View, BottomNavigationView.OnN
 
         when(item.itemId) {
             R.id.page_home -> {
-                supportFragmentManager.beginTransaction().replace(R.id.frameLayout, MainFragment()).commitAllowingStateLoss()
+                viewPager.currentItem = 0
                 return true
             }
 
             R.id.page_cafeteria -> {
-                supportFragmentManager.beginTransaction().replace(R.id.frameLayout, CafeteriaFragment()).commitAllowingStateLoss()
+                viewPager.currentItem = 1
                 return true
             }
 
             R.id.page_calendar -> {
-                supportFragmentManager.beginTransaction().replace(R.id.frameLayout, CalendarFragment()).commitAllowingStateLoss()
+                viewPager.currentItem = 2
                 return true
             }
         }
 
         return false
+    }
+
+    private inner class ViewPagerPageChangeCallback: ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            bottomNavigation.selectedItemId = when (position) {
+                0 -> R.id.page_home
+                1 -> R.id.page_cafeteria
+                2 -> R.id.page_calendar
+                else -> error("error")
+            }
+        }
+    }
+
+    private inner class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle): FragmentStateAdapter(fragmentManager, lifecycle) {
+
+        override fun getItemCount(): Int = 3
+
+        override fun createFragment(position: Int): Fragment {
+            return when (position) {
+                0 -> MainFragment()
+                1 -> CafeteriaFragment()
+                2 -> CalendarFragment()
+                else -> error("error")
+            }
+        }
+
     }
 
     override fun showProgress() {

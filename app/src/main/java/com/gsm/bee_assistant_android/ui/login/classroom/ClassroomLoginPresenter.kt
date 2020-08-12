@@ -5,35 +5,24 @@ import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.classroom.ClassroomLink
 import com.gsm.bee_assistant_android.retrofit.domain.classroom.ClassroomToken
 import com.gsm.bee_assistant_android.retrofit.domain.classroom.ClassroomTokenUpdate
-import com.gsm.bee_assistant_android.retrofit.network.ClassroomApi
-import com.gsm.bee_assistant_android.retrofit.network.UserApi
+import com.gsm.bee_assistant_android.retrofit.repository.ClassroomRepository
+import com.gsm.bee_assistant_android.retrofit.repository.UserRepository
 import com.gsm.bee_assistant_android.ui.main.MainActivity
 import com.gsm.bee_assistant_android.ui.setschool.SetSchoolActivity
 import com.gsm.bee_assistant_android.utils.DataSingleton
-import com.gsm.bee_assistant_android.utils.NetworkUtil
 import com.gsm.bee_assistant_android.utils.PreferenceManager
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class ClassroomLoginPresenter @Inject constructor(override val view: ClassroomLoginContract.View) : ClassroomLoginContract.Presenter {
-
-    @Inject
-    lateinit var classroomRetrofit: ClassroomApi
-
-    @Inject
-    lateinit var userRetrofit: UserApi
-
-    @Inject
-    override lateinit var networkStatus: NetworkUtil
-
+class ClassroomLoginPresenter @Inject constructor(
+    override val view: ClassroomLoginContract.View,
+    private val classroomApi: ClassroomRepository,
+    private val userApi: UserRepository
+) : ClassroomLoginContract.Presenter {
     @Inject
     lateinit var pref: PreferenceManager
 
@@ -43,7 +32,7 @@ class ClassroomLoginPresenter @Inject constructor(override val view: ClassroomLo
 
         view.showProgress()
 
-        classroomRetrofit.getClassroomLink().enqueue(object : Callback<ClassroomLink> {
+        classroomApi.getClassroomLink().enqueue(object : Callback<ClassroomLink> {
 
             override fun onResponse(call: Call<ClassroomLink>, response: Response<ClassroomLink>) {
                 view.hideProgress()
@@ -59,18 +48,7 @@ class ClassroomLoginPresenter @Inject constructor(override val view: ClassroomLo
         view.showProgress()
 
         addDisposable(
-            classroomRetrofit.getClassroomToken(token)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .retryWhen {
-                    Flowable.interval(3, TimeUnit.SECONDS)
-                        .retryUntil {
-                            if(networkStatus.networkInfo())
-                                return@retryUntil true
-
-                            false
-                        }
-                }
+            classroomApi.getClassroomToken(token)
                 .subscribe(
                     {
                         setClassroomToken(it)
@@ -96,18 +74,7 @@ class ClassroomLoginPresenter @Inject constructor(override val view: ClassroomLo
         val classroomTokenUpdate = ClassroomTokenUpdate(email = email, access_token = accessToken, refresh_token = refreshToken)
 
         addDisposable(
-            userRetrofit.updateClassroomToken(classroomTokenUpdate)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .retryWhen {
-                    Flowable.interval(3, TimeUnit.SECONDS)
-                        .retryUntil {
-                            if(networkStatus.networkInfo())
-                                return@retryUntil true
-
-                            false
-                        }
-                }
+            userApi.updateClassroomToken(classroomTokenUpdate)
                 .subscribe(
                     {
                         Log.d("userToken", it.token)

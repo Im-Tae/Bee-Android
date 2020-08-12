@@ -8,7 +8,6 @@ interface BasePresenter<T> {
 
     val view: T
     val compositeDisposable : CompositeDisposable
-    val networkStatus: NetworkUtil
 
     fun addDisposable(disposable: Disposable)
 

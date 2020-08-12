@@ -2,32 +2,26 @@ package com.gsm.bee_assistant_android.ui.splash
 
 import android.util.Log
 import com.gsm.bee_assistant_android.di.app.MyApplication
-import com.gsm.bee_assistant_android.retrofit.network.UserApi
+import com.gsm.bee_assistant_android.retrofit.repository.UserRepository
 import com.gsm.bee_assistant_android.ui.login.classroom.ClassroomLoginActivity
 import com.gsm.bee_assistant_android.ui.login.google.GoogleLoginActivity
 import com.gsm.bee_assistant_android.ui.main.MainActivity
 import com.gsm.bee_assistant_android.ui.setschool.SetSchoolActivity
 import com.gsm.bee_assistant_android.utils.DataSingleton
-import com.gsm.bee_assistant_android.utils.NetworkUtil
 import com.gsm.bee_assistant_android.utils.PreferenceManager
-import io.reactivex.Flowable
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SplashPresenter @Inject constructor(override val view: SplashContract.View) : SplashContract.Presenter {
+class SplashPresenter @Inject constructor(
+    override val view: SplashContract.View,
+    private val userApi: UserRepository
+) : SplashContract.Presenter {
 
     @Inject
     lateinit var pref: PreferenceManager
-
-    @Inject
-    lateinit var userRetrofit: UserApi
-
-    @Inject
-    override lateinit var networkStatus: NetworkUtil
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -46,17 +40,7 @@ class SplashPresenter @Inject constructor(override val view: SplashContract.View
 
     override fun getUserInfo() {
         addDisposable(
-            userRetrofit.getUserInfo(pref.getData(MyApplication.Key.USER_TOKEN.toString())!!)
-                .subscribeOn(Schedulers.io())
-                .retryWhen {
-                    Flowable.interval(3, TimeUnit.SECONDS)
-                        .retryUntil {
-                            if(networkStatus.networkInfo())
-                                return@retryUntil true
-
-                            false
-                        }
-                }
+            userApi.getUserInfo(pref.getData(MyApplication.Key.USER_TOKEN.toString())!!)
                 .subscribe(
                     {
                         Log.d("userInfoTest1", it.toString())

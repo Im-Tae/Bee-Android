@@ -6,32 +6,24 @@ import com.google.android.gms.auth.api.Auth
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.gsm.bee_assistant_android.di.app.MyApplication
-import com.gsm.bee_assistant_android.retrofit.network.UserApi
+import com.gsm.bee_assistant_android.retrofit.repository.UserRepository
 import com.gsm.bee_assistant_android.ui.login.classroom.ClassroomLoginActivity
 import com.gsm.bee_assistant_android.ui.main.MainActivity
 import com.gsm.bee_assistant_android.ui.setschool.SetSchoolActivity
 import com.gsm.bee_assistant_android.utils.DataSingleton
-import com.gsm.bee_assistant_android.utils.NetworkUtil
 import com.gsm.bee_assistant_android.utils.PreferenceManager
-import io.reactivex.Flowable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class GoogleLoginPresenter @Inject constructor(override val view: GoogleLoginContract.View) : GoogleLoginContract.Presenter {
+class GoogleLoginPresenter @Inject constructor(
+    override val view: GoogleLoginContract.View,
+    private val userApi: UserRepository
+) : GoogleLoginContract.Presenter {
 
     @Inject
     lateinit var pref: PreferenceManager
-
-    @Inject
-    lateinit var userRetrofit: UserApi
-
-    @Inject
-    override lateinit var networkStatus: NetworkUtil
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -64,18 +56,7 @@ class GoogleLoginPresenter @Inject constructor(override val view: GoogleLoginCon
         view.showProgress()
 
         addDisposable(
-            userRetrofit.getUserToken(email)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .retryWhen {
-                    Flowable.interval(3, TimeUnit.SECONDS)
-                        .retryUntil {
-                            if(networkStatus.networkInfo())
-                                return@retryUntil true
-
-                            false
-                        }
-                }
+            userApi.getUserToken(email)
                 .subscribe(
                     {
                         Log.i("userToken", it.token)
@@ -89,18 +70,7 @@ class GoogleLoginPresenter @Inject constructor(override val view: GoogleLoginCon
 
     override fun getUserInfo() {
         addDisposable(
-            userRetrofit.getUserInfo(pref.getData(MyApplication.Key.USER_TOKEN.toString())!!)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .retryWhen {
-                    Flowable.interval(3, TimeUnit.SECONDS)
-                        .retryUntil {
-                            if(networkStatus.networkInfo())
-                                return@retryUntil true
-
-                            false
-                        }
-                }
+            userApi.getUserInfo(pref.getData(MyApplication.Key.USER_TOKEN.toString())!!)
                 .subscribe(
                     {
                         DataSingleton.getInstance()?._userInfo = it

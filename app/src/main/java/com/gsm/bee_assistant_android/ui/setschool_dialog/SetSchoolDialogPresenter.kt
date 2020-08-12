@@ -8,6 +8,8 @@ import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.user.SchoolInfoUpdate
 import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
 import com.gsm.bee_assistant_android.retrofit.network.UserApi
+import com.gsm.bee_assistant_android.retrofit.repository.SchoolRepository
+import com.gsm.bee_assistant_android.retrofit.repository.UserRepository
 import com.gsm.bee_assistant_android.utils.DataSingleton
 import com.gsm.bee_assistant_android.utils.NetworkUtil
 import com.gsm.bee_assistant_android.utils.PreferenceManager
@@ -20,16 +22,15 @@ import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolDialogContract.View, context: Context) : SetSchoolDialogContract.Presenter {
+class SetSchoolDialogPresenter @Inject constructor(
+    override val view: SetSchoolDialogContract.View,
+    context: Context,
+    private val schoolApi: SchoolRepository,
+    private val userApi: UserRepository
+) : SetSchoolDialogContract.Presenter {
 
     @Inject
     lateinit var schoolNameRetrofit: SchoolInfoApi
-
-    @Inject
-    lateinit var userRetrofit: UserApi
-
-    @Inject
-    override lateinit var networkStatus: NetworkUtil
 
     @Inject
     lateinit var pref : PreferenceManager
@@ -53,18 +54,7 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
         compositeDisposable.add(
             Observable.range(1, 3)
                 .subscribe{
-                    schoolNameRetrofit.getAllSchoolInfo(apiKey = BuildConfig.SCHOOL_API_KEY, schoolKind = schoolKindIdList[it], perPage = "10000")
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeOn(Schedulers.io())
-                        .retryWhen {
-                            Flowable.interval(3, TimeUnit.SECONDS)
-                                .retryUntil {
-                                    if(networkStatus.networkInfo())
-                                        return@retryUntil true
-
-                                    false
-                                }
-                        }
+                    schoolApi.getAllSchoolInfo(schoolKindIdList[it])
                         .subscribe(
                             { schoolInfo ->
                                 val size = schoolInfo.dataSearch!!.content!!.size
@@ -113,9 +103,7 @@ class SetSchoolDialogPresenter @Inject constructor(override val view: SetSchoolD
         val schoolInfoUpdate = SchoolInfoUpdate(email, getRegionAndSchoolType.second, getRegionAndSchoolType.first, schoolName)
 
         addDisposable(
-            userRetrofit.updateSchoolInfo(schoolInfoUpdate)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+            userApi.updateSchoolInfo(schoolInfoUpdate)
                 .subscribe(
                     {
                         pref.setData(MyApplication.Key.USER_TOKEN.toString(), it.token).apply {

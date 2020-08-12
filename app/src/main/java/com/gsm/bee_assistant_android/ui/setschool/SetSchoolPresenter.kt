@@ -2,37 +2,26 @@ package com.gsm.bee_assistant_android.ui.setschool
 
 import android.content.Context
 import android.util.Log
-import com.gsm.bee_assistant_android.BuildConfig
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.di.app.MyApplication
 import com.gsm.bee_assistant_android.retrofit.domain.user.SchoolInfoUpdate
-import com.gsm.bee_assistant_android.retrofit.network.SchoolInfoApi
-import com.gsm.bee_assistant_android.retrofit.network.UserApi
+import com.gsm.bee_assistant_android.retrofit.repository.SchoolRepository
+import com.gsm.bee_assistant_android.retrofit.repository.UserRepository
 import com.gsm.bee_assistant_android.ui.main.MainActivity
 import com.gsm.bee_assistant_android.utils.DataSingleton
-import com.gsm.bee_assistant_android.utils.NetworkUtil
 import com.gsm.bee_assistant_android.utils.PreferenceManager
-import io.reactivex.Flowable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContract.View, context: Context) : SetSchoolContract.Presenter {
+class SetSchoolPresenter @Inject constructor(
+    override val view: SetSchoolContract.View, context: Context,
+    private val schoolApi: SchoolRepository,
+    private val userApi: UserRepository
+) : SetSchoolContract.Presenter {
 
     @Inject
     lateinit var pref : PreferenceManager
-
-    @Inject
-    lateinit var schoolNameRetrofit: SchoolInfoApi
-
-    @Inject
-    lateinit var userRetrofit: UserApi
-
-    @Inject
-    override lateinit var networkStatus: NetworkUtil
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
@@ -50,18 +39,7 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
         view.setProgressStatus(true)
 
         addDisposable(
-            schoolNameRetrofit.getSchoolInfo(apiKey = BuildConfig.SCHOOL_API_KEY, schoolKind = schoolKind, region =  region, schoolType = schoolType)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .retryWhen {
-                    Flowable.interval(3, TimeUnit.SECONDS)
-                        .retryUntil {
-                            if(networkStatus.networkInfo())
-                                return@retryUntil true
-
-                            false
-                        }
-                }
+            schoolApi.getSchoolInfo(schoolKind, region, schoolType)
                 .subscribe(
                     {
                         //Log.d("schoolNameTest", it.toString())
@@ -111,18 +89,7 @@ class SetSchoolPresenter @Inject constructor(override val view: SetSchoolContrac
         val schoolInfoUpdate = SchoolInfoUpdate(email, schoolType, region, schoolName)
 
         addDisposable(
-            userRetrofit.updateSchoolInfo(schoolInfoUpdate)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .retryWhen {
-                    Flowable.interval(3, TimeUnit.SECONDS)
-                        .retryUntil {
-                            if(networkStatus.networkInfo())
-                                return@retryUntil true
-
-                            false
-                        }
-                }
+            userApi.updateSchoolInfo(schoolInfoUpdate)
                 .subscribe(
                     {
                         pref.setData(MyApplication.Key.USER_TOKEN.toString(), it.token)

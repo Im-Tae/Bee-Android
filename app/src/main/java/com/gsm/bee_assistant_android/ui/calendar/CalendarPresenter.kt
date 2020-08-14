@@ -10,5 +10,5 @@ class CalendarPresenter @Inject constructor(override val view: CalendarContract.
 
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }
 
-    override fun disposeDisposable() = compositeDisposable.dispose()
+    override fun disposeDisposable() = compositeDisposable.clear()
 }

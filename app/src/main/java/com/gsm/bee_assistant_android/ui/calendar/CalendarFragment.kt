@@ -25,6 +25,11 @@ class CalendarFragment : BaseFragment(), CalendarContract.View {
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.disposeDisposable()
+    }
+
     override fun init() {}
 
     override fun showProgress() {}

@@ -26,6 +26,11 @@ class CafeteriaFragment : BaseFragment(), CafeteriaContract.View {
         return binding.root
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.disposeDisposable()
+    }
+
     override fun init() {
 
     }

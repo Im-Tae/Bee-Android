@@ -10,5 +10,5 @@ class CafeteriaPresenter @Inject constructor(override val view: CafeteriaContrac
 
     override fun addDisposable(disposable: Disposable) { compositeDisposable.add(disposable) }
 
-    override fun disposeDisposable() = compositeDisposable.dispose()
+    override fun disposeDisposable() = compositeDisposable.clear()
 }

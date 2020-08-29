@@ -17,10 +17,8 @@ class ProgressUtil(context: Context) {
 
     fun show() = dialog.show()
 
-    fun hideWithDismiss() {
+    fun hide() {
         dialog.hide()
         dialog.dismiss()
     }
-
-    fun hide() = dialog.hide()
 }

@@ -72,7 +72,11 @@ class CafeteriaFragment : BaseFragment(), CafeteriaContract.View {
         }
     }
 
-    override fun showProgress() = progress.show()
+    override fun showProgress() {
+
+        progress = ProgressUtil(this.context!!)
+        progress.show()
+    }
 
     override fun hideProgress() = progress.hide()
 

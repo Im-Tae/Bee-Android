@@ -1,6 +1,5 @@
 package com.gsm.bee_assistant_android.ui.cafeteria
 
-import com.gsm.bee_assistant_android.retrofit.domain.school.Meal
 import com.gsm.bee_assistant_android.retrofit.repository.SchoolRepository
 import com.gsm.bee_assistant_android.utils.DataSingleton
 import io.reactivex.disposables.CompositeDisposable

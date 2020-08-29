@@ -74,7 +74,10 @@ class SetSchoolDialogFragment : BaseDialogFragment(), SetSchoolDialogContract.Vi
 
         presenter.addDisposable(
             Observable.just(presenter.getSchoolName())
-                .subscribe { schoolNameList = it }
+                .subscribe {
+                    schoolNameList = it
+                    //hideProgress()
+                }
         )
 
         val adapter = context?.let {

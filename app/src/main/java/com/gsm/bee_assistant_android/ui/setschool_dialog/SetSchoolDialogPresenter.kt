@@ -62,10 +62,7 @@ class SetSchoolDialogPresenter @Inject constructor(
 
                                     //Log.d("test", schoolNameList[index])
 
-                                    if (content.schoolGubun == null)
-                                        checkSchoolType(content.schoolName)
-                                    else
-                                        schoolTypeList.add(content.schoolGubun)
+                                    checkSchoolType(content.schoolName)
                                 }
 
                                 if (it < 2) view.hideProgress()
@@ -79,9 +76,11 @@ class SetSchoolDialogPresenter @Inject constructor(
     }
 
     private fun checkSchoolType(schoolName: String) {
+
         when {
             schoolName.contains("중학교") -> schoolTypeList.add("중학교")
             schoolName.contains("초등학교") -> schoolTypeList.add("초등학교")
+            else -> schoolTypeList.add("고등학교")
         }
     }
 
@@ -101,7 +100,7 @@ class SetSchoolDialogPresenter @Inject constructor(
             DataSingleton.getInstance()?._userInfo.let {
                 it?.type = getRegionAndSchoolType.second
                 it?.region = getRegionAndSchoolType.first
-                it?.region = schoolName
+                it?.name = schoolName
             }
 
             addDisposable(

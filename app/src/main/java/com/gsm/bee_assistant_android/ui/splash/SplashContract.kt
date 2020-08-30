@@ -2,6 +2,7 @@ package com.gsm.bee_assistant_android.ui.splash
 
 import com.gsm.bee_assistant_android.base.BasePresenter
 import com.gsm.bee_assistant_android.base.BaseView
+import com.gsm.bee_assistant_android.retrofit.domain.user.UserInfo
 
 class SplashContract {
 
@@ -16,6 +17,6 @@ class SplashContract {
 
         fun getUserInfo()
 
-        fun checkUserInfoToChangeActivity()
+        fun checkUserInfoToChangeActivity(userInfo: UserInfo)
     }
 }

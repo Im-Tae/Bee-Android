@@ -1,9 +1,6 @@
 package com.gsm.bee_assistant_android.di.module
 
-import com.gsm.bee_assistant_android.di.module.fragment.CafeteriaModule
-import com.gsm.bee_assistant_android.di.module.fragment.CalendarModule
-import com.gsm.bee_assistant_android.di.module.fragment.ClassroomModule
-import com.gsm.bee_assistant_android.di.module.fragment.SetSchoolDialogModule
+import com.gsm.bee_assistant_android.di.module.fragment.*
 import com.gsm.bee_assistant_android.di.scope.FragmentScope
 import com.gsm.bee_assistant_android.ui.cafeteria.CafeteriaFragment
 import com.gsm.bee_assistant_android.ui.calendar.CalendarFragment

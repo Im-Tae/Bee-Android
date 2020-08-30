@@ -29,6 +29,7 @@ class SchoolRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .retryWhen {
                 Flowable.interval(3, TimeUnit.SECONDS)
+                    .onBackpressureBuffer()
                     .retryUntil {
                         if(networkStatus.networkInfo())
                             return@retryUntil true
@@ -43,6 +44,7 @@ class SchoolRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .retryWhen {
                 Flowable.interval(3, TimeUnit.SECONDS)
+                    .onBackpressureBuffer()
                     .retryUntil {
                         if(networkStatus.networkInfo())
                             return@retryUntil true
@@ -57,6 +59,7 @@ class SchoolRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .retryWhen {
                 Flowable.interval(3, TimeUnit.SECONDS)
+                    .onBackpressureBuffer()
                     .retryUntil {
                         if(networkStatus.networkInfo())
                             return@retryUntil true
@@ -71,6 +74,7 @@ class SchoolRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .retryWhen {
                 Flowable.interval(3, TimeUnit.SECONDS)
+                    .onBackpressureBuffer()
                     .retryUntil {
                         if(networkStatus.networkInfo())
                             return@retryUntil true

@@ -24,6 +24,7 @@ class UserRepository @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .retryWhen {
                 Flowable.interval(3, TimeUnit.SECONDS)
+                    .onBackpressureBuffer()
                     .retryUntil {
                         if (networkStatus.networkInfo())
                             return@retryUntil true
@@ -38,6 +39,7 @@ class UserRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .retryWhen {
                 Flowable.interval(3, TimeUnit.SECONDS)
+                    .onBackpressureBuffer()
                     .retryUntil {
                         if(networkStatus.networkInfo())
                             return@retryUntil true
@@ -52,6 +54,7 @@ class UserRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .retryWhen {
                 Flowable.interval(3, TimeUnit.SECONDS)
+                    .onBackpressureBuffer()
                     .retryUntil {
                         if(networkStatus.networkInfo())
                             return@retryUntil true
@@ -66,6 +69,7 @@ class UserRepository @Inject constructor(
             .subscribeOn(Schedulers.io())
             .retryWhen {
                 Flowable.interval(3, TimeUnit.SECONDS)
+                    .onBackpressureBuffer()
                     .retryUntil {
                         if(networkStatus.networkInfo())
                             return@retryUntil true

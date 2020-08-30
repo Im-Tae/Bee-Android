@@ -57,6 +57,11 @@ class CafeteriaFragment : BaseFragment(), CafeteriaContract.View {
         setUI()
     }
 
+    override fun onPause() {
+        super.onPause()
+        presenter.compositeDisposable.clear()
+    }
+
     override fun init() {
 
         setUI()

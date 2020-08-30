@@ -43,15 +43,20 @@ class CalendarFragment : BaseFragment(), CalendarContract.View {
         init()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.disposeDisposable()
+    }
+
     override fun onResume() {
         super.onResume()
 
         setUI()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.disposeDisposable()
+    override fun onPause() {
+        super.onPause()
+        presenter.compositeDisposable.clear()
     }
 
     private fun setUI() {
@@ -80,7 +85,7 @@ class CalendarFragment : BaseFragment(), CalendarContract.View {
             calendar_basic_textView.visibility = View.INVISIBLE
             calendar_listView.visibility = View.VISIBLE
 
-            val adapter = ArrayAdapter(this.requireContext(), R.layout.calendar_list_view_item, scheduleList)
+            val adapter = ArrayAdapter(this.requireContext(), R.layout.list_view_item, scheduleList)
 
             calendar_listView.adapter = adapter
         }

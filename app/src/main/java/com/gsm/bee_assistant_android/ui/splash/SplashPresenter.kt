@@ -2,6 +2,7 @@ package com.gsm.bee_assistant_android.ui.splash
 
 import android.util.Log
 import com.gsm.bee_assistant_android.di.app.MyApplication
+import com.gsm.bee_assistant_android.retrofit.domain.user.UserInfo
 import com.gsm.bee_assistant_android.retrofit.repository.UserRepository
 import com.gsm.bee_assistant_android.ui.login.classroom.ClassroomLoginActivity
 import com.gsm.bee_assistant_android.ui.login.google.GoogleLoginActivity
@@ -47,15 +48,13 @@ class SplashPresenter @Inject constructor(
 
                         DataSingleton.getInstance()?._userInfo = it
 
-                        checkUserInfoToChangeActivity()
+                        checkUserInfoToChangeActivity(it)
                     }, {}
                 )
         )
     }
 
-    override fun checkUserInfoToChangeActivity() {
-
-        val userInfo = DataSingleton.getInstance()?._userInfo!!
+    override fun checkUserInfoToChangeActivity(userInfo: UserInfo) {
 
         Log.d("userInfoTest2", userInfo.toString())
 

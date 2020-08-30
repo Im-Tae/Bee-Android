@@ -28,6 +28,8 @@ class ClassroomLoginPresenter @Inject constructor(
 
     override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
+    private val userInfo = DataSingleton.getInstance()?._userInfo
+
     override fun getClassroomUrl() {
 
         view.showProgress()
@@ -65,7 +67,7 @@ class ClassroomLoginPresenter @Inject constructor(
 
     override fun setClassroomToken(classroomToken: ClassroomToken) {
 
-        val email = DataSingleton.getInstance()?._userInfo?.email!!
+        val email = userInfo?.email!!
         val accessToken = classroomToken.access_token!!
         val refreshToken =  classroomToken.refresh_token!!
 
@@ -80,6 +82,8 @@ class ClassroomLoginPresenter @Inject constructor(
                         Log.d("userToken", it.token)
 
                         pref.setData(MyApplication.Key.USER_TOKEN.toString(), it.token).apply {
+                            userInfo.access_token = accessToken
+                            userInfo.refresh_token = refreshToken
                             checkUserInfoToChangeActivity()
                         }
                     },
@@ -93,15 +97,19 @@ class ClassroomLoginPresenter @Inject constructor(
 
     override fun checkUserInfoToChangeActivity() {
 
-        val schoolName = DataSingleton.getInstance()?._userInfo?.name
-
         view.hideProgress().apply {
-            if (schoolName == null) {
-                view.startActivity(SetSchoolActivity::class.java)
-                view.finishActivity()
-            } else {
-                view.startActivity(MainActivity::class.java)
-                view.finishActivity()
+            when {
+                userInfo?.name == null -> {
+                    view.startActivity(SetSchoolActivity::class.java)
+                    view.finishActivity()
+                }
+                userInfo.access_token != "" -> {
+                    view.finishActivity()
+                }
+                else -> {
+                    view.startActivity(MainActivity::class.java)
+                    view.finishActivity()
+                }
             }
         }
     }

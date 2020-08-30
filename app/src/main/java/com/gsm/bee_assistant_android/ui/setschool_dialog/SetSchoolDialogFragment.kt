@@ -31,9 +31,10 @@ class SetSchoolDialogFragment : BaseDialogFragment(), SetSchoolDialogContract.Vi
     var listener: (String) -> Unit = { inputSchoolName ->  presenter.checkSchoolName(inputSchoolName) }
 
     override fun onAttach(context: Context) {
+        super.onAttach(context)
+
         AndroidSupportInjection.inject(this)
         progress = ProgressUtil(this.context!!)
-        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,8 +65,9 @@ class SetSchoolDialogFragment : BaseDialogFragment(), SetSchoolDialogContract.Vi
     }
 
     override fun onDestroy() {
-        presenter.disposeDisposable()
         super.onDestroy()
+
+        presenter.disposeDisposable()
     }
 
     override fun dismissDialog() = dismiss()

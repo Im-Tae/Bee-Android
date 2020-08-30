@@ -34,12 +34,12 @@ class SetSchoolActivity : BaseActivity(), SetSchoolContract.View, AdapterView.On
     }
 
     override fun onDestroy() {
-        presenter.disposeDisposable()
         super.onDestroy()
+
+        presenter.disposeDisposable()
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        Log.d("spinnerTest", school_Kind_spinner.selectedItem.toString())
 
         val schoolKind = school_Kind_spinner.selectedItem.toString()
         val region = region_spinner.selectedItem.toString()

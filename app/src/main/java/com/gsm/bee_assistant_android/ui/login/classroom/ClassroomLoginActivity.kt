@@ -20,9 +20,10 @@ class ClassroomLoginActivity : AppCompatActivity(), ClassroomLoginContract.View 
     @Inject
     override lateinit var presenter: ClassroomLoginContract.Presenter
 
-    override lateinit var binding: ActivityClassroomLoginBinding
+    @Inject
+    lateinit var progress: ProgressUtil
 
-    private lateinit var progress: ProgressUtil
+    override lateinit var binding: ActivityClassroomLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +31,14 @@ class ClassroomLoginActivity : AppCompatActivity(), ClassroomLoginContract.View 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_classroom_login)
         binding.classroomLogin = this
 
-        progress = ProgressUtil(this)
-
         AndroidInjection.inject(this)
     }
 
     override fun onDestroy() {
-        presenter.disposeDisposable()
         super.onDestroy()
+
+        presenter.disposeDisposable()
+
     }
 
     override fun showClassroomWebView(url: String) = startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))

@@ -35,6 +35,7 @@ class MainActivity : BaseActivity(), MainContract.View, BottomNavigationView.OnN
     override lateinit var presenter : MainContract.Presenter
 
     override lateinit var binding: ActivityMainBinding
+
     private lateinit var bindingNavigationHeader: NavigationHeaderBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,8 +64,9 @@ class MainActivity : BaseActivity(), MainContract.View, BottomNavigationView.OnN
     }
 
     override fun onDestroy() {
-        presenter.disposeDisposable()
         super.onDestroy()
+
+        presenter.disposeDisposable()
     }
 
     override fun onClick(view: View) {
@@ -181,13 +183,9 @@ class MainActivity : BaseActivity(), MainContract.View, BottomNavigationView.OnN
 
     }
 
-    override fun showProgress() {
+    override fun showProgress() {}
 
-    }
-
-    override fun hideProgress() {
-
-    }
+    override fun hideProgress() {}
 
     override fun showToast(message: String) = Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 

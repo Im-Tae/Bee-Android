@@ -23,10 +23,9 @@ class CalendarFragment : BaseFragment(), CalendarContract.View {
     override lateinit var binding: FragmentCalendarBinding
 
     override fun onAttach(context: Context) {
+        super.onAttach(context)
 
         AndroidSupportInjection.inject(this)
-
-        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -29,8 +29,9 @@ class SplashActivity : BaseActivity(), SplashContract.View {
     }
 
     override fun onDestroy() {
-        presenter.disposeDisposable()
         super.onDestroy()
+
+        presenter.disposeDisposable()
     }
 
     override fun init() = presenter.checkUserInfo()

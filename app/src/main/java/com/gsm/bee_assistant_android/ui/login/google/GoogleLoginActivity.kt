@@ -18,11 +18,12 @@ class GoogleLoginActivity : BaseActivity(), GoogleLoginContract.View {
     @Inject
     override lateinit var presenter : GoogleLoginContract.Presenter
 
+    @Inject
+    lateinit var progress: ProgressUtil
+
     override lateinit var binding: ActivityGoogleLoginBinding
 
     private lateinit var googleSignInClient : GoogleSignInClient
-
-    private lateinit var progress: ProgressUtil
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,14 +31,13 @@ class GoogleLoginActivity : BaseActivity(), GoogleLoginContract.View {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_google_login)
         binding.googleLogin = this
 
-        progress = ProgressUtil(this)
-
         AndroidInjection.inject(this)
     }
 
     override fun onDestroy() {
-        presenter.disposeDisposable()
         super.onDestroy()
+
+        presenter.disposeDisposable()
     }
 
     override fun showLogin(signInIntent: Intent) = startActivityForResult(signInIntent, 100)
@@ -50,7 +50,7 @@ class GoogleLoginActivity : BaseActivity(), GoogleLoginContract.View {
     override fun init() {}
 
     override fun onClickGoogleLoginButton() {
-        val googleSignInOptions= GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        val googleSignInOptions = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()

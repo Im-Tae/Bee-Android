@@ -21,16 +21,15 @@ class CafeteriaFragment : BaseFragment(), CafeteriaContract.View {
     @Inject
     override lateinit var presenter: CafeteriaContract.Presenter
 
+    @Inject
+    lateinit var progress: ProgressUtil
+
     override lateinit var binding: FragmentCafeteriaBinding
 
-    private lateinit var progress: ProgressUtil
-
     override fun onAttach(context: Context) {
+        super.onAttach(context)
 
         AndroidSupportInjection.inject(this)
-        progress = ProgressUtil(this.context!!)
-
-        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

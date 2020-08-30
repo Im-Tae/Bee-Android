@@ -11,10 +11,9 @@ import javax.inject.Inject
 
 class ClassroomPresenter @Inject constructor(
     override val view: ClassroomContract.View,
+    override val compositeDisposable: CompositeDisposable,
     private val classroomApi: ClassroomRepository
 ) : ClassroomContract.Presenter {
-
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override var classList = MutableLiveData<ResponseClassList>()
 

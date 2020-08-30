@@ -12,10 +12,9 @@ import javax.inject.Inject
 
 class MainPresenter @Inject constructor(
     override val view: MainContract.View,
+    override val compositeDisposable: CompositeDisposable,
     private val pref: PreferenceManager
 ) : MainContract.Presenter {
-
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private var lastTimeBackPressed: Long = 0
 

@@ -20,12 +20,11 @@ import javax.inject.Inject
 
 class ClassroomLoginPresenter @Inject constructor(
     override val view: ClassroomLoginContract.View,
+    override val compositeDisposable: CompositeDisposable,
     private val pref: PreferenceManager,
     private val classroomApi: ClassroomRepository,
     private val userApi: UserRepository
 ) : ClassroomLoginContract.Presenter {
-
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private val userInfo = DataSingleton.getInstance()?._userInfo
 

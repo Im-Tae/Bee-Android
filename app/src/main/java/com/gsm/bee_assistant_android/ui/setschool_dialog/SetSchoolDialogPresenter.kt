@@ -17,6 +17,7 @@ import javax.inject.Inject
 
 class SetSchoolDialogPresenter @Inject constructor(
     override val view: SetSchoolDialogContract.View,
+    override val compositeDisposable: CompositeDisposable,
     private val pref: PreferenceManager,
     private val schoolApi: SchoolRepository,
     private val userApi: UserRepository,
@@ -30,8 +31,6 @@ class SetSchoolDialogPresenter @Inject constructor(
     private val schoolTypeList = mutableListOf<String>()
 
     private val regionList = mutableListOf<String>()
-
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getSchoolName(): MutableList<String> {
 

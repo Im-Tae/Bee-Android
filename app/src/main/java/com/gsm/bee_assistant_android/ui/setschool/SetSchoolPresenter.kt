@@ -16,12 +16,11 @@ import javax.inject.Inject
 
 class SetSchoolPresenter @Inject constructor(
     override val view: SetSchoolContract.View, context: Context,
+    override val compositeDisposable: CompositeDisposable,
     private val pref: PreferenceManager,
     private val schoolApi: SchoolRepository,
     private val userApi: UserRepository
 ) : SetSchoolContract.Presenter {
-
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override val regionList: Array<String> = context.resources.getStringArray(R.array.region)
     override val schoolKindList: Array<String> = context.resources.getStringArray(R.array.school_kind)

@@ -18,11 +18,10 @@ import javax.inject.Inject
 
 class SplashPresenter @Inject constructor(
     override val view: SplashContract.View,
+    override val compositeDisposable: CompositeDisposable,
     private val pref: PreferenceManager,
     private val userApi: UserRepository
 ) : SplashContract.Presenter {
-
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun checkUserInfo() {
 

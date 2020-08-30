@@ -8,10 +8,9 @@ import javax.inject.Inject
 
 class CalendarPresenter @Inject constructor(
     override val view: CalendarContract.View,
+    override val compositeDisposable: CompositeDisposable,
     private val schoolApi: SchoolRepository
 ): CalendarContract.Presenter {
-
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getSchedule(year: Int, month: Int, day: Int) {
 

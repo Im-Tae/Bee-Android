@@ -19,11 +19,10 @@ import javax.inject.Inject
 
 class GoogleLoginPresenter @Inject constructor(
     override val view: GoogleLoginContract.View,
+    override val compositeDisposable: CompositeDisposable,
     private val pref: PreferenceManager,
     private val userApi: UserRepository
 ) : GoogleLoginContract.Presenter {
-
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun googleLogin(requestCode: Int, resultCode: Int, data: Intent?) {
 

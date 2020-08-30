@@ -8,10 +8,9 @@ import javax.inject.Inject
 
 class CafeteriaPresenter @Inject constructor(
     override val view: CafeteriaContract.View,
+    override val compositeDisposable: CompositeDisposable,
     private val schoolApi: SchoolRepository
 ): CafeteriaContract.Presenter {
-
-    override val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getMeal(year: Int, month: Int, day: Int) {
 

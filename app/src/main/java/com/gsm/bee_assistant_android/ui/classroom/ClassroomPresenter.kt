@@ -46,6 +46,8 @@ class ClassroomPresenter @Inject constructor(
 
     override fun getClassWork(classId: String) {
 
+        view.showProgress()
+
         compositeDisposable.clear()
 
         addDisposable(
@@ -72,6 +74,7 @@ class ClassroomPresenter @Inject constructor(
                     {
 
                         view.showClassWork(it)
+                        view.hideProgress()
 
                     }, { it.printStackTrace() }
                 )

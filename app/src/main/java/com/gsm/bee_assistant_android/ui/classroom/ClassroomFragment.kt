@@ -33,10 +33,9 @@ class ClassroomFragment : BaseFragment(), ClassroomContract.View {
     override lateinit var binding: FragmentClassroomBinding
 
     override fun onAttach(context: Context) {
+        super.onAttach(context)
 
         AndroidSupportInjection.inject(this)
-
-        super.onAttach(context)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -114,10 +113,7 @@ class ClassroomFragment : BaseFragment(), ClassroomContract.View {
         }
     }
 
-    override fun showProgress() {
-        loading_progress.visibility = View.VISIBLE
-        recyclerView.visibility = View.INVISIBLE
-    }
+    override fun showProgress() { loading_progress.visibility = View.VISIBLE }
 
     fun onClickConnectClassroomButton() = startActivity(ClassroomLoginActivity::class.java)
 

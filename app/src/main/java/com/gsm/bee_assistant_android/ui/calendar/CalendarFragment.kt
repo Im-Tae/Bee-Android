@@ -56,6 +56,10 @@ class CalendarFragment : BaseFragment(), CalendarContract.View {
 
     override fun onPause() {
         super.onPause()
+        calendar_basic_textView.text = "날짜를 선택해 학사일정을 확인하세요."
+        calendar_basic_textView.visibility = View.VISIBLE
+        calendar_listView.visibility = View.INVISIBLE
+        calendar_basic_textView.setTextColor(resources.getColor(R.color.darkGrayColor))
         presenter.compositeDisposable.clear()
     }
 

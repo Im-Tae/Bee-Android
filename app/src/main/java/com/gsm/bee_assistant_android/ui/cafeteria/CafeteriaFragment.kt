@@ -2,6 +2,7 @@ package com.gsm.bee_assistant_android.ui.cafeteria
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.gsm.bee_assistant_android.BR
 import com.gsm.bee_assistant_android.R
@@ -46,6 +47,18 @@ class CafeteriaFragment : BaseFragment<FragmentCafeteriaBinding>(
         setUI()
 
         cafeteria__calendarView.setOnDateChangeListener { _, year, month, dayOfMonth -> presenter.getMeal(year, month + 1, dayOfMonth) }
+
+        presenter.mealList.observe(this, Observer { mealList ->
+
+            BottomSheetDialog(this.requireContext()).let {
+
+                it.setContentView(layoutInflater.inflate(R.layout.meal_table, null))
+                it.breakfast.text = mealList[0]
+                it.launch.text = mealList[1]
+                it.dinner.text = mealList[2]
+                it.show()
+            }
+        })
     }
 
     private fun setUI() {
@@ -56,18 +69,6 @@ class CafeteriaFragment : BaseFragment<FragmentCafeteriaBinding>(
         } else {
             cafeteria_notification_textView.visibility = View.INVISIBLE
             cafeteria__calendarView.visibility = View.VISIBLE
-        }
-    }
-
-    override fun showMeal(mealList: ArrayList<String>) {
-
-        BottomSheetDialog(this.requireContext()).let {
-
-            it.setContentView(layoutInflater.inflate(R.layout.meal_table, null))
-            it.breakfast.text = mealList[0]
-            it.launch.text = mealList[1]
-            it.dinner.text = mealList[2]
-            it.show()
         }
     }
 

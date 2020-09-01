@@ -17,11 +17,11 @@ import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
 import com.gsm.bee_assistant_android.databinding.ActivityMainBinding
 import com.gsm.bee_assistant_android.databinding.NavigationHeaderBinding
+import com.gsm.bee_assistant_android.ui.assistant.AssistantFragment
 import com.gsm.bee_assistant_android.ui.cafeteria.CafeteriaFragment
 import com.gsm.bee_assistant_android.ui.calendar.CalendarFragment
 import com.gsm.bee_assistant_android.ui.classroom.ClassroomFragment
 import com.gsm.bee_assistant_android.ui.setschool_dialog.SetSchoolDialogFragment
-import dagger.android.AndroidInjection
 import io.reactivex.Observable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_cafeteria.*
@@ -68,10 +68,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
     private val onClickListener = View.OnClickListener {
         when(it.id) {
             R.id.show_navigation_bar_button ->
-                presenter.addDisposable(
-                    Observable.just(drawer_layout.openDrawer(GravityCompat.END))
-                        .subscribe()
-                )
+                Observable.just(drawer_layout.openDrawer(GravityCompat.END))
+                    .compose(bindToLifecycle())
+                    .subscribe()
         }
     }
 
@@ -169,7 +168,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {
-                0 -> MainFragment()
+                0 -> AssistantFragment()
                 1 -> CafeteriaFragment()
                 2 -> CalendarFragment()
                 3 -> ClassroomFragment()

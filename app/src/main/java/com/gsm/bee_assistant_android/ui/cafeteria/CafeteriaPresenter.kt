@@ -1,5 +1,6 @@
 package com.gsm.bee_assistant_android.ui.cafeteria
 
+import androidx.lifecycle.MutableLiveData
 import com.gsm.bee_assistant_android.retrofit.repository.SchoolRepository
 import com.gsm.bee_assistant_android.utils.DataSingleton
 import io.reactivex.disposables.CompositeDisposable
@@ -11,6 +12,8 @@ class CafeteriaPresenter @Inject constructor(
     override val compositeDisposable: CompositeDisposable,
     private val schoolApi: SchoolRepository
 ): CafeteriaContract.Presenter {
+
+    override val mealList = MutableLiveData<ArrayList<String>>()
 
     override fun getMeal(year: Int, month: Int, day: Int) {
 
@@ -46,8 +49,7 @@ class CafeteriaPresenter @Inject constructor(
                 }
                 .subscribe(
                     {
-                        view.showMeal(it)
-
+                        mealList.postValue(it)
                         view.hideProgress()
                     }, {}
                 )

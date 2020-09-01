@@ -3,12 +3,10 @@ package com.gsm.bee_assistant_android.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import com.gsm.bee_assistant_android.BR
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseActivity
 import com.gsm.bee_assistant_android.databinding.ActivitySplashBinding
-import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 class SplashActivity : BaseActivity<ActivitySplashBinding>(

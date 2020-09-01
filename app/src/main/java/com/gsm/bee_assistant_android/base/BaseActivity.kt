@@ -5,17 +5,17 @@ import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.gsm.bee_assistant_android.utils.ProgressUtil
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity
 import dagger.android.AndroidInjection
 import javax.inject.Inject
 
 abstract class BaseActivity<B: ViewDataBinding>(
     @LayoutRes private val layoutResId: Int,
     private val BR: Int
-) : AppCompatActivity() {
+) : RxAppCompatActivity() {
 
     @Inject
     lateinit var progress: ProgressUtil

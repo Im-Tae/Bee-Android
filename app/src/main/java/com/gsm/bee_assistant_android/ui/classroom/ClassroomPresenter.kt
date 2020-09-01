@@ -15,7 +15,7 @@ class ClassroomPresenter @Inject constructor(
     private val classroomApi: ClassroomRepository
 ) : ClassroomContract.Presenter {
 
-    override var classList = MutableLiveData<ResponseClassList>()
+    override val classList = MutableLiveData<ResponseClassList>()
 
     override fun getClassList() {
 

@@ -3,8 +3,8 @@
 <layout>
     <data>
         <variable
-            name="mainfragment"
-            type="com.gsm.bee_assistant_android.ui.main.MainFragment" />
+            name="assistant"
+            type="com.gsm.bee_assistant_android.ui.assistant.AssistantFragment" />
     </data>
 
     <LinearLayout

@@ -5,6 +5,7 @@ package com.gsm.bee_assistant_android.ui.calendar
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import androidx.lifecycle.Observer
 import com.gsm.bee_assistant_android.BR
 import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseFragment
@@ -58,32 +59,33 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
         }
     }
 
-    override fun showSchedule(scheduleList: ArrayList<String>) {
-
-        if (scheduleList[0] == "") {
-
-            calendar_basic_textView.text = "학사일정이 없습니다."
-            calendar_basic_textView.visibility = View.VISIBLE
-            calendar_listView.visibility = View.INVISIBLE
-            calendar_basic_textView.setTextColor(resources.getColor(R.color.black))
-
-        } else {
-
-            calendar_basic_textView.text = "날짜를 선택해 학사일정을 확인하세요."
-            calendar_basic_textView.visibility = View.INVISIBLE
-            calendar_listView.visibility = View.VISIBLE
-
-            val adapter = ArrayAdapter(this.requireContext(), R.layout.list_view_item, scheduleList)
-
-            calendar_listView.adapter = adapter
-        }
-    }
-
     override fun init() {
 
         setUI()
 
         calendar_calendarView.setOnDateChangeListener { _, year, month, dayOfMonth -> presenter.getSchedule(year, month + 1, dayOfMonth) }
+
+        presenter.scheduleList.observe(this, Observer {
+
+            if (it[0] == "") {
+
+                calendar_basic_textView.text = "학사일정이 없습니다."
+                calendar_basic_textView.visibility = View.VISIBLE
+                calendar_listView.visibility = View.INVISIBLE
+                calendar_basic_textView.setTextColor(resources.getColor(R.color.black))
+
+            } else {
+
+                calendar_basic_textView.text = "날짜를 선택해 학사일정을 확인하세요."
+                calendar_basic_textView.visibility = View.INVISIBLE
+                calendar_listView.visibility = View.VISIBLE
+
+                val adapter = ArrayAdapter(this.requireContext(), R.layout.list_view_item, it)
+
+                calendar_listView.adapter = adapter
+            }
+
+        })
     }
 
     override fun showProgress()  {

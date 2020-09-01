@@ -1,5 +1,6 @@
 package com.gsm.bee_assistant_android.ui.calendar
 
+import androidx.lifecycle.MutableLiveData
 import com.gsm.bee_assistant_android.retrofit.repository.SchoolRepository
 import com.gsm.bee_assistant_android.utils.DataSingleton
 import io.reactivex.disposables.CompositeDisposable
@@ -11,6 +12,8 @@ class CalendarPresenter @Inject constructor(
     override val compositeDisposable: CompositeDisposable,
     private val schoolApi: SchoolRepository
 ): CalendarContract.Presenter {
+
+    override val scheduleList = MutableLiveData<ArrayList<String>>()
 
     override fun getSchedule(year: Int, month: Int, day: Int) {
 
@@ -36,7 +39,7 @@ class CalendarPresenter @Inject constructor(
                 }
                 .subscribe(
                     {
-                        view.showSchedule(it)
+                        scheduleList.postValue(it)
                         view.hideProgress()
                     }, {}
                 )

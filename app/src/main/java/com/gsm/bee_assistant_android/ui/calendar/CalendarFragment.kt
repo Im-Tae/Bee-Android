@@ -11,7 +11,6 @@ import com.gsm.bee_assistant_android.R
 import com.gsm.bee_assistant_android.base.BaseFragment
 import com.gsm.bee_assistant_android.databinding.FragmentCalendarBinding
 import kotlinx.android.synthetic.main.fragment_calendar.*
-import kotlinx.android.synthetic.main.fragment_calendar.loading_progress
 import javax.inject.Inject
 
 class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
@@ -80,21 +79,20 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding>(
                 calendar_basic_textView.visibility = View.INVISIBLE
                 calendar_listView.visibility = View.VISIBLE
 
-                val adapter = ArrayAdapter(this.requireContext(), R.layout.list_view_item, it)
+                val adapter = ArrayAdapter(this.requireContext(), R.layout.list_view_item, R.id.list_textView, it)
 
                 calendar_listView.adapter = adapter
             }
-
         })
     }
 
     override fun showProgress()  {
-        loading_progress.visibility = View.VISIBLE
+        calendar_loading_progress.visibility = View.VISIBLE
         calendar_basic_textView.visibility = View.INVISIBLE
         calendar_listView.visibility = View.INVISIBLE
     }
 
-    override fun hideProgress() { loading_progress.visibility = View.INVISIBLE }
+    override fun hideProgress() { calendar_loading_progress.visibility = View.INVISIBLE }
 
     override fun showToast(message: String) {}
 
